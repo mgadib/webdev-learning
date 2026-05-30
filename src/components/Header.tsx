@@ -118,13 +118,13 @@ export default function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#121212]/95 backdrop-blur-sm border-b-2 border-aw-black dark:border-white/20 transition-colors">
         <div className="max-w-content mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0 group">
+          <Link to="/" className="flex items-center gap-2 shrink-0 group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <GraduationCap
               size={22}
               strokeWidth={2}
-              className="text-aw-blue transition-transform group-hover:scale-110"
+              className="text-aw-blue transition-transform group-hover:scale-110 shrink-0"
             />
-            <span className="font-display text-[18px] sm:text-[20px] xl:text-[24px] leading-none text-aw-black dark:text-[#f0f0f0] transition-colors">
+            <span className="font-display text-[14px] sm:text-[16px] xl:text-[18px] text-aw-black dark:text-[#f0f0f0] transition-colors">
               Webdev Learning
             </span>
           </Link>
@@ -330,13 +330,13 @@ export default function Header() {
       {mobileOpen && (
         <div className="fixed inset-0 z-[100] bg-white dark:bg-[#121212] flex flex-col xl:hidden animate-in fade-in duration-200 transition-colors">
           <div className="flex items-center justify-between px-4 h-14 border-b-2 border-aw-black dark:border-white/20">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileOpen(false); }}>
               <GraduationCap
                 size={22}
                 strokeWidth={2}
-                className="text-aw-blue"
+                className="text-aw-blue shrink-0"
               />
-              <span className="font-display text-[18px] text-aw-black dark:text-[#f0f0f0]">
+              <span className="font-display text-[14px] text-aw-black dark:text-[#f0f0f0]">
                 Webdev Learning
               </span>
             </div>
