@@ -1,0 +1,20 @@
+{
+  "name": "Webdev Learning",
+  "short_name": "Webdev",
+  "description": "Platform pembelajaran web development — 27 modul, 170+ chapter dari fundamental hingga spesialisasi.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4F46E5",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "/og-image.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
