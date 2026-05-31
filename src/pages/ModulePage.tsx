@@ -1,5 +1,6 @@
 import { useParams, Navigate, useLocation, useSearchParams } from "react-router-dom";
-import { ArrowRight, CheckCircle2, BookOpen, Lightbulb, FilterX, Leaf, TreePine, Rocket } from "lucide-react";
+import { ArrowRight, CheckCircle2, BookOpen, Lightbulb, FilterX, Leaf, TreePine, Rocket, Sparkles } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useMemo } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -10,6 +11,7 @@ import { getModuleChapters, chapters as allChapters } from "@/data/chapters";
 import { useProgress } from "@/hooks/useProgress";
 import { useSEO } from "@/hooks/useSEO";
 import { SchemaOrgBreadcrumb } from "@/components/SchemaOrg";
+import { learningPathIcons } from "@/lib/learningPathIcons";
 
 export default function ModulePage() {
   const { moduleId } = useParams<{ moduleId: string }>();
@@ -39,7 +41,7 @@ export default function ModulePage() {
   });
 
   return (
-    <div className="max-w-content mx-auto px-4 sm:px-6 pt-24 pb-16">
+    <div className="max-w-content mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16">
       <SchemaOrgBreadcrumb
         items={[
           { name: "Beranda", url: "/" },
@@ -62,12 +64,15 @@ export default function ModulePage() {
           <span className="inline-block px-3 py-1 border border-app-accent text-app-accent rounded-full text-[12px] font-body font-semibold bg-transparent">
             {moduleData.level}
           </span>
+          <span className="inline-block px-3 py-1 border border-app-default text-app-muted rounded-full text-[12px] font-body font-semibold bg-app-surface-card">
+            {moduleData.topic}
+          </span>
           <span className="text-app-subtle">·</span>
           <span className="text-[13px] text-app-muted font-body">
             {chapters.length} chapter
           </span>
         </div>
-        <h1 className="font-display text-[28px] sm:text-[40px] text-app-heading leading-[1.2]">
+        <h1 className="font-display text-[28px] sm:text-[40px] text-app-heading leading-[1.2] mobile-break">
           {moduleData.title}
         </h1>
         <p className="font-subtitle text-[16px] sm:text-[18px] text-app-heading mt-2 italic">
@@ -83,14 +88,14 @@ export default function ModulePage() {
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex items-start gap-3 bg-app-surface-card border border-app-default rounded-[14px] p-4">
             <BookOpen size={18} strokeWidth={1.75} className="text-app-accent shrink-0 mt-0.5" />
-            <div>
+            <div className="min-w-0">
               <p className="font-body text-[12px] font-semibold text-app-muted uppercase tracking-wide">Prasyarat</p>
               <p className="font-body text-[14px] text-app-heading mt-1">{moduleData.prerequisites}</p>
             </div>
           </div>
           <div className="flex items-start gap-3 bg-app-surface-card border border-app-default rounded-[14px] p-4">
             <Lightbulb size={18} strokeWidth={1.75} className="text-app-accent shrink-0 mt-0.5" />
-            <div>
+            <div className="min-w-0">
               <p className="font-body text-[12px] font-semibold text-app-muted uppercase tracking-wide">Kenapa Ini Penting</p>
               <p className="font-body text-[14px] text-app-heading mt-1">{moduleData.why}</p>
             </div>
@@ -124,9 +129,9 @@ export default function ModulePage() {
                 <GlowBorder active={true}>
                   <Link
                     to={`/modul/${id}/chapter/${chapter.id}`}
-                    className="flex items-center gap-4 p-4 sm:p-6 bg-app-surface-card border border-app-strong rounded-[20px] transition-all duration-200 hover:translate-x-1 hover:border-app-accent"
+                    className="flex items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-app-surface-card border border-app-strong rounded-[20px] transition-all duration-200 hover:translate-x-1 hover:border-app-accent"
                   >
-                    <div className="w-12 h-12 rounded-full bg-app-accent text-app-on-accent flex items-center justify-center font-body text-[18px] font-bold shrink-0">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-app-accent text-app-on-accent flex items-center justify-center font-body text-[16px] sm:text-[18px] font-bold shrink-0">
                       {completed ? (
                         <CheckCircle2 size={22} strokeWidth={1.75} />
                       ) : (
@@ -134,12 +139,15 @@ export default function ModulePage() {
                       )}
                     </div>
                     <div className="flex-grow min-w-0">
-                      <h3 className="font-body text-[16px] sm:text-[18px] font-semibold text-app-heading truncate">
+                      <h3 className="font-body text-[16px] sm:text-[18px] font-semibold text-app-heading leading-snug line-clamp-2">
                         {chapter.title}
                       </h3>
-                      <p className="font-body text-[13px] sm:text-[14px] text-app-muted truncate">
+                      <p className="font-body text-[13px] sm:text-[14px] text-app-muted line-clamp-2">
                         {chapter.subtitle}
                       </p>
+                      <span className="mt-2 inline-flex w-fit rounded-full border border-app-default px-2 py-0.5 font-body text-[11px] font-semibold text-app-muted">
+                        {chapter.topic}
+                      </span>
                     </div>
                     <ArrowRight
                       size={20}
@@ -151,10 +159,10 @@ export default function ModulePage() {
               ) : (
                 <Link
                   to={`/modul/${id}/chapter/${chapter.id}`}
-                  className="flex items-center gap-4 p-4 sm:p-6 bg-app-surface-card border border-app-strong rounded-[20px] transition-all duration-200 hover:translate-x-1 hover:border-app-accent"
+                  className="flex items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-app-surface-card border border-app-strong rounded-[20px] transition-all duration-200 hover:translate-x-1 hover:border-app-accent"
                 >
                   <div
-                    className={`w-12 h-12 rounded-full flex items-center justify-center font-body text-[18px] font-bold shrink-0 ${
+                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-body text-[16px] sm:text-[18px] font-bold shrink-0 ${
                       completed
                         ? "bg-app-success text-app-on-success"
                         : "bg-app-accent text-app-on-accent"
@@ -163,12 +171,15 @@ export default function ModulePage() {
                     {completed ? <CheckCircle2 size={22} strokeWidth={1.75} /> : <span>{i + 1}</span>}
                   </div>
                   <div className="flex-grow min-w-0">
-                    <h3 className="font-body text-[16px] sm:text-[18px] font-semibold text-app-heading truncate">
+                    <h3 className="font-body text-[16px] sm:text-[18px] font-semibold text-app-heading leading-snug line-clamp-2">
                       {chapter.title}
                     </h3>
-                    <p className="font-body text-[13px] sm:text-[14px] text-app-muted truncate">
+                    <p className="font-body text-[13px] sm:text-[14px] text-app-muted line-clamp-2">
                       {chapter.subtitle}
                     </p>
+                    <span className="mt-2 inline-flex w-fit rounded-full border border-app-default px-2 py-0.5 font-body text-[11px] font-semibold text-app-muted">
+                      {chapter.topic}
+                    </span>
                   </div>
                   <ArrowRight
                     size={20}
@@ -203,10 +214,12 @@ function ModuleListPage() {
   // Resolve filter info
   const filterInfo = useMemo(() => {
     if (levelFilter) {
-      const map: Record<string, { label: string; desc: string; icon: typeof Leaf; color: string }> = {
+      const map: Record<string, { label: string; desc: string; icon: LucideIcon; color: string }> = {
         pemula: { label: "Pemula", desc: "Fondasi web untuk pemula", icon: Leaf, color: "var(--app-accent)" },
         menengah: { label: "Menengah", desc: "Membangun aplikasi nyata", icon: TreePine, color: "var(--phase-2)" },
-        lanjut: { label: "Lanjut", desc: "Spesialisasi deep-dive", icon: Rocket, color: "var(--phase-3)" },
+        lanjutan: { label: "Lanjutan", desc: "Production-ready dan engineering practice", icon: Rocket, color: "var(--app-primary)" },
+        lanjut: { label: "Lanjutan", desc: "Production-ready dan engineering practice", icon: Rocket, color: "var(--app-primary)" },
+        spesialisasi: { label: "Spesialisasi", desc: "Deep-dive sesuai jalur karier", icon: Sparkles, color: "var(--phase-3)" },
       };
       return map[levelFilter] || null;
     }
@@ -215,7 +228,7 @@ function ModuleListPage() {
         (p) => p.name.toLowerCase() === jalurFilter.toLowerCase()
       );
       if (path) {
-        return { label: path.name, desc: path.description, icon: null as unknown as typeof Leaf, color: "var(--app-accent)" };
+        return { label: path.name, desc: path.description, icon: learningPathIcons[path.icon], color: "var(--app-accent)" };
       }
     }
     return null;
@@ -228,11 +241,13 @@ function ModuleListPage() {
     if (levelFilter) {
       const levelMap: Record<string, string[]> = {
         pemula: ["Pemula"],
-        menengah: ["Menengah", "Pemula-Menengah", "Menengah-Lanjut"],
-        lanjut: ["Lanjut", "Menengah-Lanjut"],
+        menengah: ["Menengah"],
+        lanjutan: ["Lanjutan"],
+        lanjut: ["Lanjutan"],
+        spesialisasi: ["Spesialisasi"],
       };
       const levels = levelMap[levelFilter] || [];
-      return modules.filter((m) => levels.some((l) => m.level.includes(l)));
+      return modules.filter((m) => levels.includes(m.level));
     }
 
     if (jalurFilter) {
@@ -258,7 +273,7 @@ function ModuleListPage() {
   // ===== FILTERED VIEW =====
   if (filteredModules) {
     return (
-      <div className="max-w-content mx-auto px-4 sm:px-6 pt-24 pb-16">
+      <div className="max-w-content mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16">
         <Breadcrumb
           items={[
             { label: "Beranda", path: "/" },
@@ -268,7 +283,7 @@ function ModuleListPage() {
         />
 
         <ScrollReveal>
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-start gap-3 mb-2">
             {filterInfo?.icon && (
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center text-app-on-accent"
@@ -277,8 +292,8 @@ function ModuleListPage() {
                 <filterInfo.icon size={20} />
               </div>
             )}
-            <div>
-              <h1 className="font-display text-[28px] sm:text-[40px] text-app-heading leading-[1.2]">
+            <div className="min-w-0">
+              <h1 className="font-display text-[28px] sm:text-[40px] text-app-heading leading-[1.2] mobile-break">
                 {filterInfo?.label}
               </h1>
               <p className="font-body text-[15px] text-app-muted">
@@ -295,7 +310,7 @@ function ModuleListPage() {
         <div className="mt-4">
           <button
             onClick={clearFilter}
-            className="inline-flex items-center gap-2 px-4 py-2 border border-app-strong rounded-full font-body text-[13px] font-medium text-app-heading hover:bg-app-primary hover:text-app-on-primary hover:border-app-primary transition-colors"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2 border border-app-strong rounded-full font-body text-[13px] font-medium text-app-heading hover:bg-app-primary hover:text-app-on-primary hover:border-app-primary transition-colors touch-target"
           >
             <FilterX size={14} strokeWidth={1.75} />
             Tampilkan semua modul
@@ -328,13 +343,16 @@ function ModuleListPage() {
                     <span className="text-[12px] text-app-muted font-body">
                       {mod.chapterCount} chapter
                     </span>
+                    <span className="text-[12px] text-app-muted font-body">
+                      {mod.topic}
+                    </span>
                     {progress.completed > 0 && (
-                      <span className="text-[12px] font-body font-semibold text-app-success ml-auto">
+                      <span className="text-[12px] font-body font-semibold text-app-success ml-0 sm:ml-auto">
                         {progress.completed}/{progress.total} selesai
                       </span>
                     )}
                   </div>
-                  <h3 className="font-body text-[17px] sm:text-[20px] font-bold text-app-heading leading-snug">
+                  <h3 className="font-body text-[17px] sm:text-[20px] font-bold text-app-heading leading-snug mobile-break">
                     {mod.title}
                   </h3>
                   <p className="font-subtitle text-[13px] sm:text-[14px] text-app-heading italic mt-0.5">
@@ -343,8 +361,8 @@ function ModuleListPage() {
                   <p className="font-body text-[13px] sm:text-[14px] text-app-muted mt-2 leading-relaxed">
                     {mod.description}
                   </p>
-                  <div className="mt-3 flex items-center gap-4">
-                    <span className="inline-flex items-center gap-1 font-body text-[12px] text-app-muted">
+                  <div className="mt-3 flex items-center gap-4 min-w-0">
+                    <span className="inline-flex items-start gap-1 font-body text-[12px] text-app-muted min-w-0">
                       <BookOpen size={12} strokeWidth={1.75} /> {mod.prerequisites.split(".")[0]}
                     </span>
                   </div>
@@ -374,7 +392,7 @@ function ModuleListPage() {
 
   // ===== DEFAULT VIEW (all modules by phase) =====
   return (
-    <div className="max-w-content mx-auto px-4 sm:px-6 pt-24 pb-16">
+    <div className="max-w-content mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16">
       <Breadcrumb
         items={[
           { label: "Beranda", path: "/" },
@@ -395,12 +413,12 @@ function ModuleListPage() {
         {phases.map((phase, phaseIdx) => (
           <div key={phase.name}>
             {/* Phase Header */}
-            <div className="flex items-center gap-3 mb-1">
+            <div className="flex items-center gap-3 mb-1 flex-wrap">
               <div
-                className="w-3 h-3 rounded-full"
+                className="w-3 h-3 rounded-full shrink-0"
                 style={{ backgroundColor: phase.color }}
               />
-              <h2 className="font-display text-[20px] sm:text-[24px] text-app-heading">
+              <h2 className="font-display text-[20px] sm:text-[24px] text-app-heading leading-tight mobile-break">
                 {phase.name}
               </h2>
               <span
@@ -410,7 +428,7 @@ function ModuleListPage() {
                 {phase.level}
               </span>
             </div>
-            <p className="font-body text-[14px] text-app-muted ml-6 mb-4">
+            <p className="font-body text-[14px] text-app-muted sm:ml-6 mb-4">
               {phase.description}
             </p>
 
@@ -439,13 +457,16 @@ function ModuleListPage() {
                         <span className="text-[12px] text-app-muted font-body">
                           {mod.chapterCount} chapter
                         </span>
+                        <span className="text-[12px] text-app-muted font-body">
+                          {mod.topic}
+                        </span>
                         {progress.completed > 0 && (
-                          <span className="text-[12px] font-body font-semibold text-app-success ml-auto">
+                          <span className="text-[12px] font-body font-semibold text-app-success ml-0 sm:ml-auto">
                             {progress.completed}/{progress.total} selesai
                           </span>
                         )}
                       </div>
-                      <h3 className="font-body text-[17px] sm:text-[20px] font-bold text-app-heading leading-snug">
+                      <h3 className="font-body text-[17px] sm:text-[20px] font-bold text-app-heading leading-snug mobile-break">
                         {mod.title}
                       </h3>
                       <p className="font-subtitle text-[13px] sm:text-[14px] text-app-heading italic mt-0.5">
@@ -454,8 +475,8 @@ function ModuleListPage() {
                       <p className="font-body text-[13px] sm:text-[14px] text-app-muted mt-2 leading-relaxed">
                         {mod.description}
                       </p>
-                      <div className="mt-3 flex items-center gap-4">
-                        <span className="inline-flex items-center gap-1 font-body text-[12px] text-app-muted">
+                      <div className="mt-3 flex items-center gap-4 min-w-0">
+                        <span className="inline-flex items-start gap-1 font-body text-[12px] text-app-muted min-w-0">
                           <BookOpen size={12} strokeWidth={1.75} /> {mod.prerequisites.split(".")[0]}
                         </span>
                       </div>

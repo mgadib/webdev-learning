@@ -28,7 +28,7 @@ export default function TentangPage() {
   });
 
   return (
-    <div className="max-w-content mx-auto px-4 sm:px-6 pt-24 pb-16 min-h-screen transition-colors">
+    <div className="max-w-content mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16 min-h-screen transition-colors">
       <Breadcrumb
         items={[
           { label: "Beranda", path: "/" },
@@ -37,7 +37,7 @@ export default function TentangPage() {
       />
 
       <ScrollReveal>
-        <h1 className="font-display text-[32px] sm:text-[48px] text-app-heading transition-colors">
+        <h1 className="font-display text-[32px] sm:text-[48px] text-app-heading transition-colors mobile-break">
           Tentang
         </h1>
         <p className="font-body text-[15px] sm:text-[18px] italic text-app-muted mt-2 transition-colors">
@@ -86,7 +86,7 @@ export default function TentangPage() {
             <ScrollReveal key={item.title} stagger={Math.min(i + 1, 6)}>
               <div className="bg-app-elevated border border-app-strong rounded-[12px] p-5 sm:p-6 h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover">
                 <Icon size={32} strokeWidth={1.75} className="text-app-accent mb-3" />
-                <h3 className="font-body text-[15px] sm:text-[16px] font-bold text-app-heading transition-colors">
+                <h3 className="font-body text-[15px] sm:text-[16px] font-bold text-app-heading transition-colors leading-snug mobile-break">
                   {item.title}
                 </h3>
                 <p className="font-body text-[13px] sm:text-[14px] text-app-muted mt-1 transition-colors">

@@ -50,5 +50,5 @@ export default function MarkdownContent({ content, className = "" }: MarkdownCon
     return <div className={`text-app-heading ${className}`}>No content available</div>;
   }
 
-  return <div className={`max-w-none ${className}`}>{elements}</div>;
+  return <div className={`max-w-none mobile-break ${className}`}>{elements}</div>;
 }

@@ -83,13 +83,13 @@ export default function GlossaryPage() {
     : null;
 
   return (
-    <div className="max-w-content mx-auto px-4 sm:px-6 pt-20 pb-16">
+    <div className="max-w-content mx-auto px-4 sm:px-6 pt-20 pb-12 sm:pb-16">
       {/* Header */}
       <div className="text-center mb-10">
         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-app-accent-subtle text-app-accent mb-5">
           <BookOpen size={28} strokeWidth={1.75} />
         </div>
-        <h1 className="font-display text-3xl sm:text-4xl text-app-heading mb-3 transition-colors">
+        <h1 className="font-display text-3xl sm:text-4xl text-app-heading mb-3 transition-colors mobile-break">
           Glosarium Web Development
         </h1>
         <p className="font-body text-base sm:text-lg text-app-muted max-w-2xl mx-auto leading-relaxed transition-colors">
@@ -168,9 +168,9 @@ export default function GlossaryPage() {
       {/* Detail View */}
       {currentTerm && (
         <div className="mb-8 bg-app-surface rounded-2xl border border-app-default overflow-hidden transition-colors">
-          <div className="p-6 sm:p-8">
+          <div className="p-5 sm:p-8">
             <div className="flex items-start justify-between gap-4 mb-4">
-              <div>
+              <div className="min-w-0">
                 <div className="flex items-center gap-2 mb-2">
                   <span
                     className={`font-body text-[11px] font-medium px-2.5 py-0.5 rounded-full ${
@@ -180,7 +180,7 @@ export default function GlossaryPage() {
                     {currentTerm.category}
                   </span>
                 </div>
-                <h2 className="font-display text-2xl sm:text-3xl text-app-heading transition-colors">
+                <h2 className="font-display text-2xl sm:text-3xl text-app-heading transition-colors mobile-break">
                   {currentTerm.term}
                 </h2>
               </div>
@@ -192,7 +192,7 @@ export default function GlossaryPage() {
               </button>
             </div>
 
-            <p className="font-body text-lg text-app-heading mb-6 leading-relaxed transition-colors">
+            <p className="font-body text-[16px] sm:text-lg text-app-heading mb-6 leading-relaxed transition-colors">
               {currentTerm.shortDefinition}
             </p>
 
@@ -212,7 +212,7 @@ export default function GlossaryPage() {
                 <p className="font-body text-[12px] font-semibold text-app-subtle uppercase tracking-wide mb-2">
                   Contoh Kode
                 </p>
-                <pre className="bg-app-code rounded-xl p-4 overflow-x-auto">
+                <pre className="bg-app-code rounded-xl p-3 sm:p-4 overflow-x-auto max-w-full">
                   <code className="font-mono text-[13px] text-app-code">
                     {currentTerm.codeExample}
                   </code>
@@ -307,17 +307,17 @@ export default function GlossaryPage() {
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-10">
+        <div className="flex items-center justify-start sm:justify-center gap-2 mt-10 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="flex items-center gap-1 font-body text-[13px] font-medium px-3 py-2 rounded-lg border border-app-default bg-app-surface text-app-heading disabled:opacity-40 disabled:cursor-not-allowed hover:border-app-accent transition-colors"
+            className="flex shrink-0 items-center gap-1 font-body text-[13px] font-medium px-3 py-2 rounded-lg border border-app-default bg-app-surface text-app-heading disabled:opacity-40 disabled:cursor-not-allowed hover:border-app-accent transition-colors"
           >
             <ChevronLeft size={16} strokeWidth={1.75} />
             Prev
           </button>
 
-          <div className="flex items-center gap-1">
+          <div className="flex shrink-0 items-center gap-1">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
                 key={page}
@@ -336,7 +336,7 @@ export default function GlossaryPage() {
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="flex items-center gap-1 font-body text-[13px] font-medium px-3 py-2 rounded-lg border border-app-default bg-app-surface text-app-heading disabled:opacity-40 disabled:cursor-not-allowed hover:border-app-accent transition-colors"
+            className="flex shrink-0 items-center gap-1 font-body text-[13px] font-medium px-3 py-2 rounded-lg border border-app-default bg-app-surface text-app-heading disabled:opacity-40 disabled:cursor-not-allowed hover:border-app-accent transition-colors"
           >
             Next
             <ChevronRight size={16} strokeWidth={1.75} />
@@ -353,7 +353,7 @@ export default function GlossaryPage() {
       )}
 
       {/* Bottom CTA */}
-      <div className="mt-16 text-center bg-app-accent-subtle rounded-2xl p-8 border border-app-accent/40">
+      <div className="mt-16 text-center bg-app-accent-subtle rounded-2xl p-5 sm:p-8 border border-app-accent/40">
         <h3 className="font-display text-xl text-app-heading mb-2 transition-colors">
           Mau belajar lebih dalam?
         </h3>
@@ -363,7 +363,7 @@ export default function GlossaryPage() {
         </p>
         <Link
           to="/modul"
-          className="inline-flex items-center gap-2 font-body text-[14px] font-semibold bg-app-accent text-app-on-accent px-6 py-3 rounded-xl hover:bg-app-accent/90 transition-colors"
+          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 font-body text-[14px] font-semibold bg-app-accent text-app-on-accent px-6 py-3 rounded-xl hover:bg-app-accent/90 transition-colors touch-target"
         >
           Jelajahi Modul <ArrowRight size={16} strokeWidth={1.75} />
         </Link>

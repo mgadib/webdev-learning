@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Lightbulb, MessageCircleQuestion, Layers, Shield, Cloud, Monitor, Server, Terminal } from "lucide-react";
+import { ArrowRight, BookOpen, Lightbulb, MessageCircleQuestion, Terminal } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollReveal from "@/components/ScrollReveal";
 import GlowBorder from "@/components/GlowBorder";
@@ -8,6 +8,7 @@ import { chapters } from "@/data/chapters";
 import { useProgress } from "@/hooks/useProgress";
 import { useSEO } from "@/hooks/useSEO";
 import { SchemaOrgWebsite } from "@/components/SchemaOrg";
+import { learningPathIcons } from "@/lib/learningPathIcons";
 
 export default function HomePage() {
   useSEO({
@@ -23,10 +24,10 @@ export default function HomePage() {
     <div className="transition-normal">
       <SchemaOrgWebsite />
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] sm:min-h-[60vh] flex flex-col items-center justify-center px-4 sm:px-6 pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-hidden">
+      <section className="relative min-h-[52svh] sm:min-h-[60vh] flex flex-col items-center justify-center px-4 sm:px-6 pt-20 sm:pt-28 pb-10 sm:pb-16 overflow-hidden">
         <TrailPaintCanvas variant="hero" />
-        <div className="relative z-10 text-center max-w-[600px] px-6 py-8 rounded-3xl">
-          <h1 className="font-display text-[32px] sm:text-[56px] text-app-heading leading-[1.1] drop-shadow-sm">
+        <div className="relative z-10 text-center w-full max-w-[600px] px-3 sm:px-6 py-6 sm:py-8 rounded-3xl">
+          <h1 className="font-display text-[32px] sm:text-[56px] text-app-heading leading-[1.1] drop-shadow-sm mobile-break">
             Webdev Learning
           </h1>
           <p className="font-body text-[16px] sm:text-[20px] italic text-app-muted mt-3">
@@ -39,13 +40,13 @@ export default function HomePage() {
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center gap-3 justify-center">
             <Link to="/modul"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-app-primary border-2 border-app-primary text-app-on-primary rounded-full font-body font-semibold text-[15px] transition-normal hover:bg-app-primary-hover hover:border-app-primary-hover shadow-md"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 bg-app-primary border-2 border-app-primary text-app-on-primary rounded-full font-body font-semibold text-[15px] transition-normal hover:bg-app-primary-hover hover:border-app-primary-hover shadow-md touch-target"
             >
               Mulai Belajar
               <ArrowRight size={18} strokeWidth={1.75} />
             </Link>
             <Link to="/tentang"
-              className="inline-flex items-center gap-2 px-6 py-3 border-2 border-app-strong text-app-heading rounded-full font-body font-semibold text-[15px] transition-normal hover:bg-app-primary hover:text-app-on-primary hover:border-app-primary bg-app-elevated/80 backdrop-blur-sm"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3 border-2 border-app-strong text-app-heading rounded-full font-body font-semibold text-[15px] transition-normal hover:bg-app-primary hover:text-app-on-primary hover:border-app-primary bg-app-elevated/80 backdrop-blur-sm touch-target"
             >
               Tentang Metode
             </Link>
@@ -65,23 +66,18 @@ export default function HomePage() {
         </ScrollReveal>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
           {learningPaths.map((path, i) => {
-            const pathIcons: Record<string, React.ReactNode> = {
-              monitor: <Monitor size={20} strokeWidth={1.75} />,
-              server: <Server size={20} strokeWidth={1.75} />,
-              layers: <Layers size={20} strokeWidth={1.75} />,
-              cloud: <Cloud size={20} strokeWidth={1.75} />,
-              shield: <Shield size={20} strokeWidth={1.75} />,
-            };
+            const PathIcon = learningPathIcons[path.icon];
+
             return (
               <ScrollReveal key={path.name} stagger={i + 1}>
                 <Link to="/modul"
                   className="flex items-start gap-3 p-4 bg-app-surface-card border border-app-default rounded-2xl transition-normal hover:-translate-y-0.5 hover:shadow-card-hover"
                 >
                   <div className="w-10 h-10 rounded-full bg-app-accent text-app-on-accent flex items-center justify-center shrink-0">
-                    {pathIcons[path.icon]}
+                    {PathIcon && <PathIcon size={20} strokeWidth={1.75} />}
                   </div>
-                  <div>
-                    <h3 className="font-body text-[14px] font-bold text-app-heading">{path.name}</h3>
+                  <div className="min-w-0">
+                    <h3 className="font-body text-[14px] font-bold text-app-heading leading-snug mobile-break">{path.name}</h3>
                     <p className="font-body text-[12px] text-app-muted mt-0.5">{path.description}</p>
                     <p className="font-body text-[11px] text-app-accent mt-1">{path.modules.length} modul</p>
                   </div>
@@ -105,16 +101,16 @@ export default function HomePage() {
           {phases.map((phase, phaseIdx) => (
             <ScrollReveal key={phase.name} stagger={phaseIdx + 1}>
               {/* Phase Header */}
-              <div className="flex items-center gap-3 mb-1">
-                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: phase.color }} />
-                <h3 className="font-display text-[20px] sm:text-[26px] text-app-heading">{phase.name}</h3>
+              <div className="flex items-center gap-3 mb-1 flex-wrap">
+                <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: phase.color }} />
+                <h3 className="font-display text-[20px] sm:text-[26px] text-app-heading leading-tight mobile-break">{phase.name}</h3>
                 <span className="px-2.5 py-0.5 rounded-full text-[11px] font-body font-semibold border"
                   style={{ borderColor: phase.color, color: phase.color }}
                 >
                   {phase.level}
                 </span>
               </div>
-              <p className="font-body text-[14px] text-app-muted ml-6 mb-4">{phase.description}</p>
+              <p className="font-body text-[14px] text-app-muted sm:ml-6 mb-4">{phase.description}</p>
 
               {/* Module Cards */}
               <div className="flex flex-col gap-4">
@@ -194,9 +190,9 @@ export default function HomePage() {
         </ScrollReveal>
 
         <ScrollReveal stagger={2}>
-          <div className="mt-12 flex items-start gap-4 bg-app-elevated border border-app-default rounded-2xl p-6">
+          <div className="mt-12 flex items-start gap-4 bg-app-elevated border border-app-default rounded-2xl p-5 sm:p-6">
             <BookOpen size={28} strokeWidth={1.75} className="text-app-accent shrink-0 mt-1" />
-            <div>
+            <div className="min-w-0">
               <h3 className="font-body text-[18px] font-bold text-app-heading mb-2">Tips Memulai</h3>
               <p className="font-body text-[15px] text-app-muted leading-relaxed">
                 Mulai dari <strong>Fase 1: Fondasi Web</strong> dan kerjakan chapter
@@ -232,11 +228,12 @@ function ModuleCardContent({
           {mod.level}
         </span>
         <span className="text-[12px] text-app-muted font-body">{mod.chapterCount} chapter</span>
+        <span className="text-[12px] text-app-muted font-body">{mod.topic}</span>
         {progress.completed > 0 && (
-          <span className="text-[12px] font-body font-semibold text-app-success ml-auto">{Math.round(progress.percentage)}%</span>
+          <span className="text-[12px] font-body font-semibold text-app-success ml-0 sm:ml-auto">{Math.round(progress.percentage)}%</span>
         )}
       </div>
-      <h4 className="font-body text-[17px] sm:text-[20px] font-bold text-app-heading leading-snug">{mod.title}</h4>
+      <h4 className="font-body text-[17px] sm:text-[20px] font-bold text-app-heading leading-snug mobile-break">{mod.title}</h4>
       <p className="font-subtitle text-[13px] sm:text-[14px] text-app-body italic mt-1">{mod.subtitle}</p>
       <p className="font-body text-[13px] sm:text-[14px] text-app-muted mt-2 leading-relaxed">{mod.description}</p>
       <div className="flex items-center justify-between mt-3">

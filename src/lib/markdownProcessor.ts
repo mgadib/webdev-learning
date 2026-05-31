@@ -42,6 +42,7 @@ const sanitizeOptions = {
     "*": ["className", "class"], // Allow class for styling
     a: ["href", "target", "rel"],
     img: ["src", "alt", "title", "width", "height"],
+    ol: ["start"],
     // Note: We don't allow onclick, onload, etc. for security
   },
   // Allow these protocols in href and src
@@ -87,6 +88,21 @@ export async function markdownToReactElements(
   
   // Convert DOM nodes to React elements with proper styling
   return convertDomToReact(template.content);
+}
+
+function isMeaningfulListItem(node: Node): boolean {
+  if (
+    node.nodeType !== Node.ELEMENT_NODE ||
+    (node as HTMLElement).tagName.toLowerCase() !== "li"
+  ) {
+    return false;
+  }
+
+  const element = node as HTMLElement;
+  return Boolean(
+    element.textContent?.trim() ||
+      element.querySelector("ul, ol, pre, code, img, table, blockquote")
+  );
 }
 
 // Helper function to convert DOM nodes to React elements
@@ -181,45 +197,52 @@ function convertDomToReact(node: DocumentFragment | Node): any {
           key: Math.random()
         }, Array.from(element.childNodes).map(convertDomToReact));
       case "ul":
+        const unorderedItems = Array.from(element.childNodes)
+          .filter((child) => isMeaningfulListItem(child));
+
         return React.createElement("ul", {
-          className: "my-5 space-y-3 ml-0.5 max-w-[68ch]",
+          className: "my-5 space-y-3 max-w-[68ch]",
           key: Math.random()
-        }, Array.from(element.childNodes)
-          .filter(child => child.nodeType === Node.ELEMENT_NODE && (child as HTMLElement).tagName.toLowerCase() === "li")
+        }, unorderedItems
           .map((li, index) => {
             const liElement = li as HTMLElement;
             return React.createElement("li", {
-              className: "flex items-start gap-3 text-[15px] sm:text-[16px] text-app-body leading-[1.8]",
+              className: "grid grid-cols-[1rem_minmax(0,1fr)] items-start gap-3 text-[15px] sm:text-[16px] text-app-body leading-[1.8]",
               key: index
             }, [
               React.createElement("span", {
-                className: "mt-[9px] w-[6px] h-[6px] rounded-full bg-app-accent shrink-0",
+                className: "mt-[0.7em] ml-[5px] w-[6px] h-[6px] rounded-full bg-app-accent",
                 key: `bullet-${index}`
               }),
-              React.createElement("span", {
-                className: "flex-1",
+              React.createElement("div", {
+                className: "min-w-0 [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:my-3 [&>ol]:my-3",
                 key: `content-${index}`
               }, Array.from(liElement.childNodes).map(convertDomToReact))
             ]);
           }));
       case "ol":
+        const orderedItems = Array.from(element.childNodes)
+          .filter((child) => isMeaningfulListItem(child));
+        const start = Number.parseInt(element.getAttribute("start") || "1", 10);
+        const startNumber = Number.isFinite(start) ? start : 1;
+
         return React.createElement("ol", {
-          className: "my-5 space-y-3 ml-0.5 list-none max-w-[68ch]",
+          className: "my-5 space-y-3 list-none max-w-[68ch]",
+          start: startNumber,
           key: Math.random()
-        }, Array.from(element.childNodes)
-          .filter(child => child.nodeType === Node.ELEMENT_NODE && (child as HTMLElement).tagName.toLowerCase() === "li")
+        }, orderedItems
           .map((li, index) => {
             const liElement = li as HTMLElement;
             return React.createElement("li", {
-              className: "flex items-start gap-3 text-[15px] sm:text-[16px] text-app-body leading-[1.8]",
+              className: "grid grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-2 text-[15px] sm:text-[16px] text-app-body leading-[1.8]",
               key: index
             }, [
               React.createElement("span", {
-                className: "font-mono font-semibold text-app-accent text-[13px] mt-[7px] shrink-0 min-w-[1.8em]",
+                className: "font-mono font-semibold text-app-accent text-[13px] pt-[0.22em] tabular-nums text-right",
                 key: `number-${index}`
-              }, `${index + 1}.`),
-              React.createElement("span", {
-                className: "flex-1",
+              }, `${startNumber + index}.`),
+              React.createElement("div", {
+                className: "min-w-0 [&>p]:mb-2 [&>p:last-child]:mb-0 [&>ul]:my-3 [&>ol]:my-3",
                 key: `content-${index}`
               }, Array.from(liElement.childNodes).map(convertDomToReact))
             ]);

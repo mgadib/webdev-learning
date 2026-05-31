@@ -10,16 +10,63 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-padding-top: 4.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
   html, body {
     background-color: var(--app-page);
     color: var(--app-text-heading);
     font-family: 'Nunito Sans', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body {
+    min-width: 320px;
   }
 
   * {
     border-color: var(--app-border-default);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  img,
+  picture,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Scrollbar */
@@ -56,6 +103,12 @@
     z-index: 0;
     pointer-events: none;
   }
+
+  @media (max-width: 640px) {
+    .trail-canvas {
+      opacity: 0.35;
+    }
+  }
 }
 
 @layer utilities {
@@ -70,5 +123,25 @@
     font-family: 'Nunito Sans', system-ui, sans-serif;
     font-weight: 400;
     font-style: italic;
+  }
+
+  .touch-target {
+    min-height: 44px;
+  }
+
+  .mobile-break {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

@@ -17,9 +17,9 @@ export default function ReflectiveQuestion({
 
   return (
     <div className="mt-6 p-4 sm:p-6 rounded-xl bg-app-surface-card border-l-4 border-app-success transition-normal">
-      <div className="flex items-center gap-2 mb-3">
+      <div className="flex items-start sm:items-center gap-2 mb-3">
         <MessageCircleQuestion size={20} strokeWidth={1.75} className="text-app-success shrink-0" />
-        <h3 className="font-display text-[20px] sm:text-[24px] text-app-heading">
+        <h3 className="font-display text-[20px] sm:text-[24px] text-app-heading leading-tight">
           Pertanyaan Reflektif
         </h3>
       </div>

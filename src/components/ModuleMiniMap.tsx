@@ -16,8 +16,8 @@ export default function ModuleMiniMap({
 }: ModuleMiniMapProps) {
   return (
     <div className="relative mb-6">
-      <div className="overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
-        <div className="flex items-center gap-0 justify-center min-w-min px-2">
+      <div className="overflow-x-auto pb-2 -mx-4 px-4 sm:-mx-1 sm:px-1 scrollbar-hide">
+        <div className="flex items-center gap-0 justify-start sm:justify-center min-w-max sm:min-w-min px-1 sm:px-2">
           {chapterIds.map((cid, i) => {
             const isCompleted = completedChapters[`${moduleId}_${cid}`];
             const isCurrent = cid === currentChapterId;

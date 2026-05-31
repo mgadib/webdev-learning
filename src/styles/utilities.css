@@ -80,8 +80,8 @@
   .transition-slow   { transition: all var(--transition-slow); }
 
   /* ── MAX WIDTH ── */
-  .max-w-content { max-width: 780px; margin-left: auto; margin-right: auto; }
-  .max-w-wide    { max-width: 960px; margin-left: auto; margin-right: auto; }
+  .max-w-content { width: 100%; max-width: 780px; margin-left: auto; margin-right: auto; }
+  .max-w-wide    { width: 100%; max-width: 960px; margin-left: auto; margin-right: auto; }
 
   /* ── SCROLLBAR ── */
   .scrollbar-thin::-webkit-scrollbar { width: 4px; height: 4px; }

@@ -22,7 +22,7 @@ const orgSchema = {
   "@type": "EducationalOrganization",
   name: "Webdev Learning",
   url: "https://webdev-learning.id/",
-  logo: "https://webdev-learning.id/og-image.jpg",
+  logo: "https://webdev-learning.id/apple-touch-icon.png",
   description:
     "Platform pembelajaran web development berbahasa Indonesia dengan metode analogi, kode praktis, dan refleksi mandiri.",
   sameAs: [],

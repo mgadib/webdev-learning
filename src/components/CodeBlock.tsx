@@ -45,7 +45,7 @@ const customLightTheme = {
     color: "var(--app-code-text)",
     background: "none",
     fontFamily: codeFontFamily,
-    fontSize: "12.5px",
+    fontSize: "clamp(11px, 3vw, 12.5px)",
     lineHeight: "1.7",
     textAlign: "left" as const,
     whiteSpace: "pre" as const,
@@ -59,7 +59,7 @@ const customLightTheme = {
     color: "var(--app-code-text)",
     background: "var(--app-code-bg)",
     fontFamily: codeFontFamily,
-    fontSize: "12.5px",
+    fontSize: "clamp(11px, 3vw, 12.5px)",
     lineHeight: "1.7",
     textAlign: "left" as const,
     whiteSpace: "pre" as const,
@@ -68,7 +68,7 @@ const customLightTheme = {
     wordWrap: "normal" as const,
     tabSize: 2,
     hyphens: "none" as const,
-    padding: "1rem",
+    padding: "0.875rem",
     margin: 0,
     overflow: "auto",
     borderRadius: "0 0 12px 12px",
@@ -114,7 +114,7 @@ const customDarkTheme = {
     color: "var(--app-code-text)",
     background: "none",
     fontFamily: codeFontFamily,
-    fontSize: "12.5px",
+    fontSize: "clamp(11px, 3vw, 12.5px)",
     lineHeight: "1.7",
     textAlign: "left" as const,
     whiteSpace: "pre" as const,
@@ -128,7 +128,7 @@ const customDarkTheme = {
     color: "var(--app-code-text)",
     background: "var(--app-code-bg)",
     fontFamily: codeFontFamily,
-    fontSize: "12.5px",
+    fontSize: "clamp(11px, 3vw, 12.5px)",
     lineHeight: "1.7",
     textAlign: "left" as const,
     whiteSpace: "pre" as const,
@@ -137,7 +137,7 @@ const customDarkTheme = {
     wordWrap: "normal" as const,
     tabSize: 2,
     hyphens: "none" as const,
-    padding: "1rem",
+    padding: "0.875rem",
     margin: 0,
     overflow: "auto",
     borderRadius: "0 0 12px 12px",
@@ -205,14 +205,14 @@ export default function CodeBlock({ code, language = "javascript", filename }: C
     : ["#e0443e", "#dea123", "#1aab29"];
 
   return (
-    <div className="code-block-wrapper my-5 rounded-xl overflow-hidden border border-app-default shadow-sm">
+    <div className="code-block-wrapper my-5 rounded-xl overflow-hidden border border-app-default shadow-sm max-w-full">
       {/* Header bar */}
       <div
-        className="flex items-center justify-between px-4 py-2.5 bg-app-code-header"
+        className="flex items-center justify-between gap-3 px-3 sm:px-4 py-2.5 bg-app-code-header"
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0">
           {/* Window dots */}
-          <div className="flex gap-1.5 mr-3">
+          <div className="hidden sm:flex gap-1.5 mr-3">
             {dotColor.map((color, i) => (
               <span
                 key={i}
@@ -227,7 +227,7 @@ export default function CodeBlock({ code, language = "javascript", filename }: C
           </span>
         </div>
         {/* Filename or copy hint */}
-        <span className="text-[11px] opacity-50 font-mono truncate max-w-[200px]">
+        <span className="text-[11px] opacity-50 font-mono truncate max-w-[120px] sm:max-w-[200px]">
           {filename || "snippet"}
         </span>
       </div>
@@ -239,7 +239,7 @@ export default function CodeBlock({ code, language = "javascript", filename }: C
         showLineNumbers
         lineNumberStyle={{
           minWidth: "2em",
-          paddingRight: "0.75em",
+          paddingRight: "0.6em",
           color: "var(--app-text-subtle)",
           fontSize: "11px",
           textAlign: "right",

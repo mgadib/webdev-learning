@@ -79,7 +79,7 @@ export default function ChapterPage() {
       />
       <TrailPaintCanvas variant="chapter-bg" />
 
-      <div className="relative z-10 max-w-content mx-auto px-4 sm:px-6 pt-24 pb-16">
+      <div className="relative z-10 max-w-content mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16">
         <Breadcrumb
           items={[
             { label: "Beranda", path: "/" },
@@ -93,7 +93,10 @@ export default function ChapterPage() {
           <span className="inline-block px-4 py-1 bg-app-accent text-app-on-accent rounded-full text-[13px] font-body font-semibold">
             Chapter {chapter.chapterNum}
           </span>
-          <h1 className="font-display text-[28px] sm:text-[40px] text-app-heading mt-3 leading-[1.2]">
+          <span className="ml-2 inline-block px-3 py-1 border border-app-default bg-app-surface-card text-app-muted rounded-full text-[12px] font-body font-semibold">
+            {chapter.topic}
+          </span>
+          <h1 className="font-display text-[28px] sm:text-[40px] text-app-heading mt-3 leading-[1.2] mobile-break">
             {chapter.title}
           </h1>
           <div className="w-[60px] h-[2px] bg-app-accent mt-4" />
@@ -102,7 +105,7 @@ export default function ChapterPage() {
         {/* ── Section 2: Tujuan Pembelajaran ── */}
         <ScrollReveal stagger={1}>
           <div className="mt-8 bg-app-surface-chapter border border-app-default rounded-2xl p-5 sm:p-6">
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-start sm:items-center gap-2 mb-4">
               <Compass size={20} strokeWidth={1.75} className="text-app-accent" />
               <h2 className="font-body text-[16px] font-semibold text-app-heading">
                 Tujuan Pembelajaran
@@ -128,15 +131,15 @@ export default function ChapterPage() {
         {/* ── Section 3: Analogi ── */}
         <ScrollReveal stagger={1}>
           <div className="mt-8 bg-app-surface-card border border-app-default rounded-2xl p-5 sm:p-8">
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-start sm:items-center gap-2 mb-4">
               <Lightbulb size={20} strokeWidth={1.75} className="text-app-success" />
-              <h2 className="font-display text-[24px] sm:text-[28px] text-app-heading">
+              <h2 className="font-display text-[24px] sm:text-[28px] text-app-heading leading-tight">
                 Analogi
               </h2>
             </div>
 
-            <div className="bg-app-elevated border border-dashed border-app-default rounded-xl p-3 sm:p-5 overflow-x-auto -mx-1">
-              <pre className="font-mono text-[11px] sm:text-[14px] text-app-body leading-relaxed whitespace-pre min-w-max p-1">
+            <div className="bg-app-elevated border border-dashed border-app-default rounded-xl p-3 sm:p-5 overflow-x-auto -mx-1 max-w-full">
+              <pre className="font-mono text-[10px] sm:text-[14px] text-app-body leading-relaxed whitespace-pre min-w-max p-1">
                 {chapter.analogy.diagram}
               </pre>
             </div>
@@ -148,7 +151,7 @@ export default function ChapterPage() {
         {/* ── Section 4: Penjelasan Konsep ── */}
         <ScrollReveal stagger={1}>
           <div className="mt-8 bg-app-elevated/50 rounded-2xl p-4 sm:p-6 border border-app-subtle">
-            <h2 className="font-body text-[17px] sm:text-[19px] font-semibold text-app-heading mb-5 flex items-center gap-2">
+            <h2 className="font-body text-[17px] sm:text-[19px] font-semibold text-app-heading mb-5 flex items-start sm:items-center gap-2">
               <span className="w-1 h-5 rounded-full bg-app-accent" />
               Penjelasan Konsep
             </h2>

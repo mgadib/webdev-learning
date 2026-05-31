@@ -33,10 +33,10 @@ export default function ChapterNav({
       <div className="flex flex-col sm:flex-row justify-between gap-3 mt-6">
         {prevId ? (
           <Link to={`/modul/${moduleId}/chapter/${prevId}`}
-            className="inline-flex items-center gap-2 px-5 py-3 sm:px-6 border border-app-strong text-app-heading rounded-full font-body font-semibold text-[14px] sm:text-[15px] transition-normal hover:bg-app-primary hover:text-app-on-primary hover:border-app-primary min-h-[48px]"
+            className="inline-flex w-full sm:w-auto items-center justify-center sm:justify-start gap-2 px-5 py-3 sm:px-6 border border-app-strong text-app-heading rounded-full font-body font-semibold text-[14px] sm:text-[15px] transition-normal hover:bg-app-primary hover:text-app-on-primary hover:border-app-primary min-h-[48px]"
           >
             <ChevronLeft size={18} strokeWidth={1.75} />
-            <span className="truncate max-w-[180px] sm:max-w-[200px]">{chapterTitles[prevId]}</span>
+            <span className="truncate max-w-[160px] sm:max-w-[200px]">{chapterTitles[prevId]}</span>
           </Link>
         ) : (
           <div className="hidden sm:block" />
@@ -44,14 +44,14 @@ export default function ChapterNav({
 
         {nextId ? (
           <Link to={`/modul/${moduleId}/chapter/${nextId}`}
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 border border-app-primary bg-app-primary text-app-on-primary rounded-full font-body font-semibold text-[14px] sm:text-[15px] transition-normal hover:bg-app-primary-hover hover:border-app-primary-hover shadow-sm min-h-[48px] order-first sm:order-last"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-3 sm:px-6 border border-app-primary bg-app-primary text-app-on-primary rounded-full font-body font-semibold text-[14px] sm:text-[15px] transition-normal hover:bg-app-primary-hover hover:border-app-primary-hover shadow-sm min-h-[48px] order-first sm:order-last"
           >
-            <span className="truncate max-w-[180px] sm:max-w-[200px]">{chapterTitles[nextId]}</span>
+            <span className="truncate max-w-[160px] sm:max-w-[200px]">{chapterTitles[nextId]}</span>
             <ChevronRight size={18} strokeWidth={1.75} />
           </Link>
         ) : (
           <Link to="/modul"
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:px-6 border border-app-primary bg-app-primary text-app-on-primary rounded-full font-body font-semibold text-[14px] sm:text-[15px] transition-normal hover:bg-app-primary-hover hover:border-app-primary-hover shadow-sm min-h-[48px] order-first sm:order-last"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-3 sm:px-6 border border-app-primary bg-app-primary text-app-on-primary rounded-full font-body font-semibold text-[14px] sm:text-[15px] transition-normal hover:bg-app-primary-hover hover:border-app-primary-hover shadow-sm min-h-[48px] order-first sm:order-last"
           >
             Kembali ke Daftar Modul
             <ChevronRight size={18} strokeWidth={1.75} />
