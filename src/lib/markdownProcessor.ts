@@ -119,14 +119,23 @@ function convertDomToReact(node: DocumentFragment | Node): any {
         }, Array.from(element.childNodes).map(convertDomToReact));
       case "h2":
         return React.createElement("h3", {
-          className: "font-display text-[19px] sm:text-[22px] font-semibold text-app-heading mt-7 mb-3 leading-snug",
+          className: "font-display text-[19px] sm:text-[22px] font-semibold text-app-heading mt-8 mb-3 leading-snug",
           key: Math.random()
         }, Array.from(element.childNodes).map(convertDomToReact));
       case "h3":
         return React.createElement("h4", {
-          className: "font-display text-[16px] sm:text-[18px] font-semibold text-app-heading mt-5 mb-2 leading-snug",
+          className: "font-body text-[16px] sm:text-[18px] font-bold text-app-heading mt-7 mb-3 leading-snug flex items-center gap-2",
           key: Math.random()
-        }, Array.from(element.childNodes).map(convertDomToReact));
+        }, [
+          React.createElement("span", {
+            className: "w-1 h-5 rounded-full bg-app-accent shrink-0",
+            key: "marker"
+          }),
+          React.createElement("span", {
+            className: "min-w-0",
+            key: "heading"
+          }, Array.from(element.childNodes).map(convertDomToReact))
+        ]);
       case "h4":
         return React.createElement("h5", {
           className: "font-display text-[14px] sm:text-[16px] font-semibold text-app-heading mt-4 mb-1 leading-snug",
@@ -144,7 +153,7 @@ function convertDomToReact(node: DocumentFragment | Node): any {
         }, Array.from(element.childNodes).map(convertDomToReact));
       case "p":
         return React.createElement("p", {
-          className: "font-body text-[15px] sm:text-[16px] text-app-body leading-[1.85] mb-5 max-w-[72ch]",
+          className: "font-body text-[15px] sm:text-[16px] text-app-body leading-[1.9] mb-5 max-w-[68ch]",
           key: Math.random()
         }, Array.from(element.childNodes).map(convertDomToReact));
       case "br":
@@ -157,7 +166,7 @@ function convertDomToReact(node: DocumentFragment | Node): any {
       case "strong":
       case "b":
         return React.createElement("strong", {
-          className: "font-semibold text-app-body",
+          className: "font-bold text-app-heading",
           key: Math.random()
         }, Array.from(element.childNodes).map(convertDomToReact));
       case "em":
@@ -173,7 +182,7 @@ function convertDomToReact(node: DocumentFragment | Node): any {
         }, Array.from(element.childNodes).map(convertDomToReact));
       case "ul":
         return React.createElement("ul", {
-          className: "my-4 space-y-2.5 ml-0.5",
+          className: "my-5 space-y-3 ml-0.5 max-w-[68ch]",
           key: Math.random()
         }, Array.from(element.childNodes)
           .filter(child => child.nodeType === Node.ELEMENT_NODE && (child as HTMLElement).tagName.toLowerCase() === "li")
@@ -195,7 +204,7 @@ function convertDomToReact(node: DocumentFragment | Node): any {
           }));
       case "ol":
         return React.createElement("ol", {
-          className: "my-4 space-y-2.5 ml-0.5 list-none",
+          className: "my-5 space-y-3 ml-0.5 list-none max-w-[68ch]",
           key: Math.random()
         }, Array.from(element.childNodes)
           .filter(child => child.nodeType === Node.ELEMENT_NODE && (child as HTMLElement).tagName.toLowerCase() === "li")

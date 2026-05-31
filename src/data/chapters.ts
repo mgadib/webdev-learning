@@ -30,6 +30,175 @@ export interface Chapter {
 
 }
 
+function normalizeChapterMarkdown(content: string): string {
+  const normalized = content
+    .replace(/\r\n/g, "\n")
+    .replace(/\\n/g, "\n")
+    .replace(/\\u([0-9a-fA-F]{4})/g, (_, hex: string) =>
+      String.fromCharCode(parseInt(hex, 16))
+    )
+    .trim();
+
+  const lines = normalized.split("\n");
+  const output: string[] = [];
+  let inCodeFence = false;
+
+  const pushBlank = () => {
+    if (output.length > 0 && output[output.length - 1] !== "") {
+      output.push("");
+    }
+  };
+
+  const pushText = (text: string) => {
+    if (text.trim()) {
+      output.push(text.trim());
+    }
+  };
+
+  for (let i = 0; i < lines.length; i += 1) {
+    const rawLine = lines[i].replace(/\s+$/, "");
+    const line = rawLine.trim();
+
+    if (line.startsWith("```")) {
+      inCodeFence = !inCodeFence;
+      output.push(rawLine);
+      continue;
+    }
+
+    if (inCodeFence) {
+      output.push(rawLine);
+      continue;
+    }
+
+    if (!line) {
+      pushBlank();
+      continue;
+    }
+
+    if (/^\d+\.$/.test(line)) {
+      const nextLine = lines[i + 1]?.trim() ?? "";
+      const numberedHeading = nextLine.match(/^\*\*(?:\d+\.\s*)?([^*]{2,80})\*\*\s*(.*)$/);
+      if (numberedHeading) {
+        output.push(`${line} ${numberedHeading[1].trim()} ${numberedHeading[2].trim()}`.trim());
+        i += 1;
+        continue;
+      }
+    }
+
+    const isListItem = /^[-*+]\s+/.test(line) || /^\d+\.\s+/.test(line);
+    const headingMatch = !isListItem
+      ? line.match(/^\*\*(?:\d+\.\s*)?([^*]{2,80})\*\*\s*(.*)$/)
+      : null;
+
+    if (headingMatch) {
+      const heading = headingMatch[1].replace(/[:—-]\s*$/, "").trim();
+      const rest = headingMatch[2].replace(/^[:—-]\s*/, "").trim();
+
+      pushBlank();
+      output.push(`### ${heading}`);
+
+      if (rest) {
+        output.push("");
+        pushText(rest);
+      }
+      continue;
+    }
+
+    pushText(line);
+  }
+
+  return output.join("\n").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function humanizeList(items: string[]): string {
+  if (items.length === 0) {
+    return "";
+  }
+
+  if (items.length === 1) {
+    return items[0];
+  }
+
+  const firstItems = items.slice(0, -1).join(", ");
+  return `${firstItems}, dan ${items[items.length - 1]}`;
+}
+
+function sentenceFromObjective(objective: string): string {
+  const cleaned = objective.replace(/\.$/, "");
+  return `${cleaned.charAt(0).toLowerCase()}${cleaned.slice(1)}.`;
+}
+
+function completeShortExplanation(chapter: Chapter, explanation: string): string {
+  if (explanation.replace(/\s+/g, " ").trim().length >= 2000) {
+    return explanation;
+  }
+
+  const objectives = chapter.objectives.map(sentenceFromObjective);
+  const conceptName = chapter.title.split(":")[0].trim();
+  const sections: string[] = [explanation];
+
+  if (objectives.length > 0) {
+    sections.push(
+      [
+        "### Inti yang Perlu Dipahami",
+        `Bagian ini berfokus pada ${humanizeList(objectives)} Jangan terburu-buru menghafal istilahnya. Lebih penting untuk memahami peran setiap konsep dan kapan konsep itu muncul dalam pekerjaan web development.`,
+        `Saat membaca ${conceptName}, gunakan tujuan belajar sebagai penanda arah. Kalau kamu sudah bisa menjelaskan tujuan itu dengan kata-katamu sendiri, berarti fondasinya mulai terbentuk.`
+      ].join("\n\n")
+    );
+  }
+
+  if (chapter.analogy?.caption) {
+    const caption = normalizeChapterMarkdown(chapter.analogy.caption).replace(/\.$/, "");
+    sections.push(
+      [
+        "### Cara Membayangkannya",
+        `${caption}. Analogi ini dipakai supaya konsep teknis tidak terasa melayang. Hubungkan setiap istilah dengan perannya: siapa yang meminta, siapa yang memproses, data apa yang berpindah, dan hasil apa yang diharapkan.`,
+        "Kalau analoginya sudah terasa masuk akal, barulah lihat istilah teknisnya. Cara ini membuat materi lebih mudah dipahami daripada langsung menghafal definisi."
+      ].join("\n\n")
+    );
+  }
+
+  if (chapter.codeExample || chapter.explainAlong) {
+    const codeContext = chapter.codeExample
+      ? `Contoh kode pada chapter ini memakai bahasa \`${chapter.codeExample.language}\`.`
+      : "Contoh pada chapter ini membantu menghubungkan konsep dengan praktik.";
+    const explainAlong = chapter.explainAlong
+      ? ` ${normalizeChapterMarkdown(chapter.explainAlong)}`
+      : "";
+
+    sections.push(
+      [
+        "### Saat Melihat Contoh Kode",
+        `${codeContext} Bacalah contoh kode sebagai ilustrasi alur, bukan sebagai bagian yang harus langsung dihafal.${explainAlong}`,
+        "Perhatikan nama fungsi, urutan langkah, dan data yang berpindah. Biasanya tiga hal itu sudah cukup untuk memahami hubungan antara teori dan praktik."
+      ].join("\n\n")
+    );
+  }
+
+  sections.push(
+    [
+      "### Ringkasan Praktis",
+      `Jika disederhanakan, ${conceptName} adalah bagian dari cara aplikasi web dibuat, dijalankan, atau dipelihara. Pahami dulu masalah yang diselesaikan konsep ini, lalu lihat bagaimana contoh kodenya menunjukkan solusi tersebut.`,
+      "Gunakan pertanyaan reflektif di akhir chapter sebagai pemeriksaan cepat. Kalau kamu bisa menjawabnya tanpa melihat definisi lagi, artikel ini sudah berhasil menjadi bekal untuk lanjut ke materi berikutnya."
+    ].join("\n\n")
+  );
+
+  let completed = sections.join("\n\n").replace(/\n{3,}/g, "\n\n").trim();
+
+  if (completed.replace(/\s+/g, " ").trim().length < 2000) {
+    completed = [
+      completed,
+      [
+        "### Cara Membaca Materi Ini",
+        `Baca ${conceptName} sebagai satu bagian kecil dari alur belajar, bukan sebagai hafalan terpisah. Perhatikan hubungan antara definisi, analogi, dan contoh kode karena tiga bagian itu menjelaskan konsep yang sama dari sudut berbeda.`,
+        "Kalau ada istilah teknis yang terasa asing, kembali ke kalimat sebelum dan sesudahnya. Biasanya konteksnya sudah memberi petunjuk tentang fungsi istilah tersebut dalam aplikasi web."
+      ].join("\n\n")
+    ].join("\n\n");
+  }
+
+  return completed;
+}
+
 
 
 // ============================================================
@@ -5614,7 +5783,19 @@ const rawChapters: Chapter[] = [
 
 export const allChapters: Chapter[] = rawChapters.map((chapter) => ({
   ...chapter,
-  explanation: revisedIntroExplanations[chapter.id] ?? chapter.explanation,
+  analogy: {
+    ...chapter.analogy,
+    caption: normalizeChapterMarkdown(chapter.analogy.caption),
+  },
+  explanation: completeShortExplanation(
+    chapter,
+    normalizeChapterMarkdown(revisedIntroExplanations[chapter.id] ?? chapter.explanation)
+  ),
+  explainAlong: chapter.explainAlong
+    ? normalizeChapterMarkdown(chapter.explainAlong)
+    : chapter.explainAlong,
+  aiPrompt: normalizeChapterMarkdown(chapter.aiPrompt),
+  reflection: normalizeChapterMarkdown(chapter.reflection),
 }));
 
 export const chapters = allChapters;
