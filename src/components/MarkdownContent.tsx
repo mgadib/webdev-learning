@@ -1,5 +1,5 @@
 import * as React from "react";
-import { markdownToHtml } from "@/lib/markdownProcessor";
+import { markdownToHtml, markdownToReactElements } from "@/lib/markdownProcessor";
 
 interface MarkdownContentProps {
   content: string;
@@ -7,23 +7,32 @@ interface MarkdownContentProps {
 }
 
 export default function MarkdownContent({ content, className = "" }: MarkdownContentProps) {
-  const [html, setHtml] = React.useState<string | null>(null);
+  const [elements, setElements] = React.useState<React.ReactNode | null>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
+  const useArticleStyles = className.trim() === "";
 
   React.useEffect(() => {
     let isMounted = true;
     
-    markdownToHtml(content)
+    const processor = useArticleStyles ? markdownToReactElements : markdownToHtml;
+
+    processor(content)
       .then((result) => {
         if (isMounted) {
-          setHtml(result);
+          setElements(
+            useArticleStyles ? (
+              result as React.ReactNode
+            ) : (
+              <div className="contents" dangerouslySetInnerHTML={{ __html: result as string }} />
+            )
+          );
           setLoading(false);
         }
       })
       .catch((error) => {
         console.error("Error processing markdown:", error);
         if (isMounted) {
-          setHtml("<p>Error loading content</p>");
+          setElements(<p>Error loading content</p>);
           setLoading(false);
         }
       });
@@ -31,18 +40,15 @@ export default function MarkdownContent({ content, className = "" }: MarkdownCon
     return () => {
       isMounted = false;
     };
-  }, [content]);
+  }, [content, useArticleStyles]);
 
   if (loading) {
     return <div className={`text-app-heading animate-pulse ${className}`}>Loading...</div>;
   }
 
-  if (!html) {
+  if (!elements) {
     return <div className={`text-app-heading ${className}`}>No content available</div>;
   }
 
-  return <div
-    dangerouslySetInnerHTML={{ __html: html }}
-    className={`prose prose-sm max-w-none ${className}`}
-  />;
+  return <div className={`max-w-none ${className}`}>{elements}</div>;
 }
