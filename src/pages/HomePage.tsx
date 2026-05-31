@@ -235,8 +235,7 @@ function ModuleCardContent({
       </div>
       <h4 className="font-body text-[17px] sm:text-[20px] font-bold text-app-heading leading-snug mobile-break">{mod.title}</h4>
       <p className="font-subtitle text-[13px] sm:text-[14px] text-app-body italic mt-1">{mod.subtitle}</p>
-      <p className="font-body text-[13px] sm:text-[14px] text-app-muted mt-2 leading-relaxed">{mod.description}</p>
-      <div className="flex items-center justify-between mt-3">
+      <div className="flex items-center justify-between mt-4">
         <span className="inline-flex items-center gap-1 font-body text-[13px] font-medium text-app-accent">
           Lihat Chapter <ArrowRight size={13} strokeWidth={1.75} />
         </span>

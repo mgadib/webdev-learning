@@ -358,9 +358,6 @@ function ModuleListPage() {
                   <p className="font-subtitle text-[13px] sm:text-[14px] text-app-heading italic mt-0.5">
                     {mod.subtitle}
                   </p>
-                  <p className="font-body text-[13px] sm:text-[14px] text-app-muted mt-2 leading-relaxed">
-                    {mod.description}
-                  </p>
                   <div className="mt-3 flex items-center gap-4 min-w-0">
                     <span className="inline-flex items-start gap-1 font-body text-[12px] text-app-muted min-w-0">
                       <BookOpen size={12} strokeWidth={1.75} /> {mod.prerequisites.split(".")[0]}
@@ -471,9 +468,6 @@ function ModuleListPage() {
                       </h3>
                       <p className="font-subtitle text-[13px] sm:text-[14px] text-app-heading italic mt-0.5">
                         {mod.subtitle}
-                      </p>
-                      <p className="font-body text-[13px] sm:text-[14px] text-app-muted mt-2 leading-relaxed">
-                        {mod.description}
                       </p>
                       <div className="mt-3 flex items-center gap-4 min-w-0">
                         <span className="inline-flex items-start gap-1 font-body text-[12px] text-app-muted min-w-0">
