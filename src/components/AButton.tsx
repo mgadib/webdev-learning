@@ -25,15 +25,15 @@ export default function AButton({
   type = "button",
 }: AButtonProps) {
   const base =
-    "inline-flex items-center gap-2 px-6 py-3 border-2 rounded-full font-body font-semibold text-[15px] transition-all duration-200 cursor-pointer";
+    "inline-flex items-center gap-2 px-6 py-3 border rounded-full font-body font-semibold text-[15px] cursor-pointer transition-normal";
 
   const variants = {
     primary:
-      "bg-aw-blue border-aw-blue text-white hover:bg-aw-black hover:border-aw-black",
+      "bg-app-primary border-app-primary text-app-on-primary hover:bg-app-primary-hover hover:border-app-primary-hover shadow-sm",
     secondary:
-      "bg-transparent border-aw-black text-aw-black hover:bg-aw-black hover:text-white",
+      "bg-transparent border-app-strong text-app-heading hover:bg-app-primary hover:text-app-on-primary hover:border-app-primary",
     ghost:
-      "bg-transparent border-aw-border-dim text-aw-border-mid hover:border-aw-black hover:text-aw-black",
+      "bg-transparent border-app-default text-app-muted hover:border-app-strong hover:text-app-heading",
   };
 
   const classes = cn(base, variants[variant], fullWidth && "w-full justify-center", className);

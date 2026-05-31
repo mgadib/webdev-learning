@@ -1,5 +1,5 @@
 import { useParams, Navigate, useLocation, useSearchParams } from "react-router-dom";
-import { ArrowRight, CheckCircle2, Lock, Target, FilterX, Leaf, TreePine, Rocket } from "lucide-react";
+import { ArrowRight, CheckCircle2, BookOpen, Lightbulb, FilterX, Leaf, TreePine, Rocket } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useMemo } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -55,25 +55,25 @@ export default function ModulePage() {
 
       <ScrollReveal>
         <div className="flex items-center gap-2 mb-2 flex-wrap">
-          <span className="text-[12px] font-body font-semibold text-aw-green">
+          <span className="text-[12px] font-body font-semibold text-app-success">
             {moduleData.phase}
           </span>
-          <span className="text-aw-border-dim">·</span>
-          <span className="inline-block px-3 py-1 bg-aw-blue text-white rounded-full text-[12px] font-body font-semibold">
+          <span className="text-app-subtle">·</span>
+          <span className="inline-block px-3 py-1 border border-app-accent text-app-accent rounded-full text-[12px] font-body font-semibold bg-transparent">
             {moduleData.level}
           </span>
-          <span className="text-aw-border-dim">·</span>
-          <span className="text-[13px] text-aw-border-mid font-body">
+          <span className="text-app-subtle">·</span>
+          <span className="text-[13px] text-app-muted font-body">
             {chapters.length} chapter
           </span>
         </div>
-        <h1 className="font-display text-[28px] sm:text-[40px] text-aw-black leading-[1.2]">
+        <h1 className="font-display text-[28px] sm:text-[40px] text-app-heading leading-[1.2]">
           {moduleData.title}
         </h1>
-        <p className="font-subtitle text-[16px] sm:text-[18px] text-aw-black mt-2 italic">
+        <p className="font-subtitle text-[16px] sm:text-[18px] text-app-heading mt-2 italic">
           {moduleData.subtitle}
         </p>
-        <p className="font-body text-[15px] sm:text-[16px] text-aw-border-mid mt-3 leading-relaxed">
+        <p className="font-body text-[15px] sm:text-[16px] text-app-muted mt-3 leading-relaxed">
           {moduleData.description}
         </p>
       </ScrollReveal>
@@ -81,18 +81,18 @@ export default function ModulePage() {
       {/* Prerequisites & Why */}
       <ScrollReveal stagger={1}>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-[14px] p-4">
-            <Lock size={18} className="text-amber-600 shrink-0 mt-0.5" />
+          <div className="flex items-start gap-3 bg-app-surface-card border border-app-default rounded-[14px] p-4">
+            <BookOpen size={18} strokeWidth={1.75} className="text-app-accent shrink-0 mt-0.5" />
             <div>
-              <p className="font-body text-[12px] font-semibold text-amber-700 uppercase tracking-wide">Prasyarat</p>
-              <p className="font-body text-[14px] text-amber-800 mt-1">{moduleData.prerequisites}</p>
+              <p className="font-body text-[12px] font-semibold text-app-muted uppercase tracking-wide">Prasyarat</p>
+              <p className="font-body text-[14px] text-app-heading mt-1">{moduleData.prerequisites}</p>
             </div>
           </div>
-          <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-[14px] p-4">
-            <Target size={18} className="text-blue-600 shrink-0 mt-0.5" />
+          <div className="flex items-start gap-3 bg-app-surface-card border border-app-default rounded-[14px] p-4">
+            <Lightbulb size={18} strokeWidth={1.75} className="text-app-accent shrink-0 mt-0.5" />
             <div>
-              <p className="font-body text-[12px] font-semibold text-blue-700 uppercase tracking-wide">Kenapa Ini Penting</p>
-              <p className="font-body text-[14px] text-blue-800 mt-1">{moduleData.why}</p>
+              <p className="font-body text-[12px] font-semibold text-app-muted uppercase tracking-wide">Kenapa Ini Penting</p>
+              <p className="font-body text-[14px] text-app-heading mt-1">{moduleData.why}</p>
             </div>
           </div>
         </div>
@@ -101,13 +101,13 @@ export default function ModulePage() {
       {/* Progress Bar */}
       <ScrollReveal stagger={1}>
         <div className="mt-6">
-          <div className="w-full h-2 bg-aw-border-dim rounded-full overflow-hidden">
-            <div
-              className="h-full bg-aw-green rounded-full transition-all duration-500 ease-out"
-              style={{ width: `${progress.percentage}%` }}
-            />
+          <div className="w-full h-2 bg-app-inset rounded-full overflow-hidden">
+          <div
+            className="h-full bg-app-success rounded-full transition-all duration-500 ease-out"
+            style={{ width: `${progress.percentage}%` }}
+          />
           </div>
-          <p className="text-[13px] text-aw-border-mid font-body mt-2">
+          <p className="text-[13px] text-app-muted font-body mt-2">
             {progress.completed} dari {progress.total} chapter selesai
           </p>
         </div>
@@ -124,54 +124,56 @@ export default function ModulePage() {
                 <GlowBorder active={true}>
                   <Link
                     to={`/modul/${id}/chapter/${chapter.id}`}
-                    className="flex items-center gap-4 p-4 sm:p-6 bg-aw-card-bg border-2 border-aw-black rounded-[20px] transition-all duration-200 hover:translate-x-1 hover:border-aw-blue"
+                    className="flex items-center gap-4 p-4 sm:p-6 bg-app-surface-card border border-app-strong rounded-[20px] transition-all duration-200 hover:translate-x-1 hover:border-app-accent"
                   >
-                    <div className="w-12 h-12 rounded-full bg-aw-blue text-white flex items-center justify-center font-body text-[18px] font-bold shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-app-accent text-app-on-accent flex items-center justify-center font-body text-[18px] font-bold shrink-0">
                       {completed ? (
-                        <CheckCircle2 size={22} />
+                        <CheckCircle2 size={22} strokeWidth={1.75} />
                       ) : (
                         <span>{i + 1}</span>
                       )}
                     </div>
                     <div className="flex-grow min-w-0">
-                      <h3 className="font-body text-[16px] sm:text-[18px] font-semibold text-aw-black truncate">
+                      <h3 className="font-body text-[16px] sm:text-[18px] font-semibold text-app-heading truncate">
                         {chapter.title}
                       </h3>
-                      <p className="font-body text-[13px] sm:text-[14px] text-aw-border-mid truncate">
+                      <p className="font-body text-[13px] sm:text-[14px] text-app-muted truncate">
                         {chapter.subtitle}
                       </p>
                     </div>
                     <ArrowRight
                       size={20}
-                      className="text-aw-border-dim shrink-0"
+                      strokeWidth={1.75}
+                      className="text-app-subtle shrink-0"
                     />
                   </Link>
                 </GlowBorder>
               ) : (
                 <Link
                   to={`/modul/${id}/chapter/${chapter.id}`}
-                  className="flex items-center gap-4 p-4 sm:p-6 bg-aw-card-bg border-2 border-aw-black rounded-[20px] transition-all duration-200 hover:translate-x-1 hover:border-aw-blue"
+                  className="flex items-center gap-4 p-4 sm:p-6 bg-app-surface-card border border-app-strong rounded-[20px] transition-all duration-200 hover:translate-x-1 hover:border-app-accent"
                 >
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center font-body text-[18px] font-bold shrink-0 ${
                       completed
-                        ? "bg-aw-green text-white"
-                        : "bg-aw-blue text-white"
+                        ? "bg-app-success text-app-on-success"
+                        : "bg-app-accent text-app-on-accent"
                     }`}
                   >
-                    {completed ? <CheckCircle2 size={22} /> : <span>{i + 1}</span>}
+                    {completed ? <CheckCircle2 size={22} strokeWidth={1.75} /> : <span>{i + 1}</span>}
                   </div>
                   <div className="flex-grow min-w-0">
-                    <h3 className="font-body text-[16px] sm:text-[18px] font-semibold text-aw-black truncate">
+                    <h3 className="font-body text-[16px] sm:text-[18px] font-semibold text-app-heading truncate">
                       {chapter.title}
                     </h3>
-                    <p className="font-body text-[13px] sm:text-[14px] text-aw-border-mid truncate">
+                    <p className="font-body text-[13px] sm:text-[14px] text-app-muted truncate">
                       {chapter.subtitle}
                     </p>
                   </div>
                   <ArrowRight
                     size={20}
-                    className="text-aw-border-dim shrink-0"
+                    strokeWidth={1.75}
+                    className="text-app-subtle shrink-0"
                   />
                 </Link>
               )}
@@ -202,9 +204,9 @@ function ModuleListPage() {
   const filterInfo = useMemo(() => {
     if (levelFilter) {
       const map: Record<string, { label: string; desc: string; icon: typeof Leaf; color: string }> = {
-        pemula: { label: "Pemula", desc: "Fondasi web untuk pemula", icon: Leaf, color: "#10b981" },
-        menengah: { label: "Menengah", desc: "Membangun aplikasi nyata", icon: TreePine, color: "#3b82f6" },
-        lanjut: { label: "Lanjut", desc: "Spesialisasi deep-dive", icon: Rocket, color: "#8b5cf6" },
+        pemula: { label: "Pemula", desc: "Fondasi web untuk pemula", icon: Leaf, color: "var(--app-accent)" },
+        menengah: { label: "Menengah", desc: "Membangun aplikasi nyata", icon: TreePine, color: "var(--phase-2)" },
+        lanjut: { label: "Lanjut", desc: "Spesialisasi deep-dive", icon: Rocket, color: "var(--phase-3)" },
       };
       return map[levelFilter] || null;
     }
@@ -213,7 +215,7 @@ function ModuleListPage() {
         (p) => p.name.toLowerCase() === jalurFilter.toLowerCase()
       );
       if (path) {
-        return { label: path.name, desc: path.description, icon: null as unknown as typeof Leaf, color: "#2563eb" };
+        return { label: path.name, desc: path.description, icon: null as unknown as typeof Leaf, color: "var(--app-accent)" };
       }
     }
     return null;
@@ -269,22 +271,22 @@ function ModuleListPage() {
           <div className="flex items-center gap-3 mb-2">
             {filterInfo?.icon && (
               <div
-                className="w-10 h-10 rounded-full flex items-center justify-center text-white"
+                className="w-10 h-10 rounded-full flex items-center justify-center text-app-on-accent"
                 style={{ backgroundColor: filterInfo.color }}
               >
                 <filterInfo.icon size={20} />
               </div>
             )}
             <div>
-              <h1 className="font-display text-[28px] sm:text-[40px] text-aw-black leading-[1.2]">
+              <h1 className="font-display text-[28px] sm:text-[40px] text-app-heading leading-[1.2]">
                 {filterInfo?.label}
               </h1>
-              <p className="font-body text-[15px] text-aw-border-mid">
+              <p className="font-body text-[15px] text-app-muted">
                 {filterInfo?.desc}
               </p>
             </div>
           </div>
-          <p className="font-body text-[14px] text-aw-border-mid mt-1">
+          <p className="font-body text-[14px] text-app-muted mt-1">
             Menampilkan {filteredModules.length} dari {modules.length} modul
           </p>
         </ScrollReveal>
@@ -293,9 +295,9 @@ function ModuleListPage() {
         <div className="mt-4">
           <button
             onClick={clearFilter}
-            className="inline-flex items-center gap-2 px-4 py-2 border-2 border-aw-black rounded-full font-body text-[13px] font-medium text-aw-black hover:bg-aw-black hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-app-strong rounded-full font-body text-[13px] font-medium text-app-heading hover:bg-app-primary hover:text-app-on-primary hover:border-app-primary transition-colors"
           >
-            <FilterX size={14} />
+            <FilterX size={14} strokeWidth={1.75} />
             Tampilkan semua modul
           </button>
         </div>
@@ -308,53 +310,54 @@ function ModuleListPage() {
               <ScrollReveal key={mod.id} stagger={Math.min(modIdx + 1, 4)}>
                 <Link
                   to={`/modul/${mod.id}`}
-                  className="block bg-aw-card-bg border-2 border-aw-black rounded-[20px] p-4 sm:p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover"
+                  className="block bg-app-surface-card border border-app-strong rounded-[20px] p-4 sm:p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover"
                 >
                   <div className="flex items-center gap-2 mb-2 flex-wrap">
-                    <span className="font-body text-[13px] font-bold text-aw-black">
+                    <span className="font-body text-[13px] font-bold text-app-heading">
                       {String(mod.id).padStart(2, "0")}.
                     </span>
                     <span
-                      className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-body font-semibold text-white"
+                      className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-body font-semibold border-2 bg-transparent"
                       style={{
-                        backgroundColor: phase?.color || "#2563eb",
+                        borderColor: phase?.color || "var(--app-accent)",
+                        color: phase?.color || "var(--app-accent)",
                       }}
                     >
                       {mod.level}
                     </span>
-                    <span className="text-[12px] text-aw-border-mid font-body">
+                    <span className="text-[12px] text-app-muted font-body">
                       {mod.chapterCount} chapter
                     </span>
                     {progress.completed > 0 && (
-                      <span className="text-[12px] font-body font-semibold text-aw-green ml-auto">
+                      <span className="text-[12px] font-body font-semibold text-app-success ml-auto">
                         {progress.completed}/{progress.total} selesai
                       </span>
                     )}
                   </div>
-                  <h3 className="font-body text-[17px] sm:text-[20px] font-bold text-aw-black leading-snug">
+                  <h3 className="font-body text-[17px] sm:text-[20px] font-bold text-app-heading leading-snug">
                     {mod.title}
                   </h3>
-                  <p className="font-subtitle text-[13px] sm:text-[14px] text-aw-black italic mt-0.5">
+                  <p className="font-subtitle text-[13px] sm:text-[14px] text-app-heading italic mt-0.5">
                     {mod.subtitle}
                   </p>
-                  <p className="font-body text-[13px] sm:text-[14px] text-aw-border-mid mt-2 leading-relaxed">
+                  <p className="font-body text-[13px] sm:text-[14px] text-app-muted mt-2 leading-relaxed">
                     {mod.description}
                   </p>
                   <div className="mt-3 flex items-center gap-4">
-                    <span className="inline-flex items-center gap-1 font-body text-[12px] text-aw-border-mid">
-                      <Lock size={12} /> {mod.prerequisites.split(".")[0]}
+                    <span className="inline-flex items-center gap-1 font-body text-[12px] text-app-muted">
+                      <BookOpen size={12} strokeWidth={1.75} /> {mod.prerequisites.split(".")[0]}
                     </span>
                   </div>
                   <div className="flex items-center justify-between mt-3">
-                    <span className="inline-flex items-center gap-1 font-body text-[13px] font-medium text-aw-blue">
-                      Lihat Chapter <ArrowRight size={13} />
+                    <span className="inline-flex items-center gap-1 font-body text-[13px] font-medium text-app-accent">
+                      Lihat Chapter <ArrowRight size={13} strokeWidth={1.75} />
                     </span>
                   </div>
                   {progress.total > 0 && progress.completed > 0 && (
                     <div className="mt-3">
-                      <div className="w-full h-1.5 bg-aw-border-dim rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-app-inset rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-aw-green rounded-full transition-all duration-500"
+                          className="h-full bg-app-success rounded-full transition-all duration-500"
                           style={{ width: `${progress.percentage}%` }}
                         />
                       </div>
@@ -380,10 +383,10 @@ function ModuleListPage() {
       />
 
       <ScrollReveal>
-        <h1 className="font-display text-[28px] sm:text-[40px] text-aw-black leading-[1.2]">
+        <h1 className="font-display text-[28px] sm:text-[40px] text-app-heading leading-[1.2]">
           Daftar Modul
         </h1>
-        <p className="font-body text-[15px] sm:text-[16px] text-aw-border-mid mt-2">
+        <p className="font-body text-[15px] sm:text-[16px] text-app-muted mt-2">
           {modules.length} modul dengan {allChapters.length} chapter — terorganisir dalam {phases.length} fase pembelajaran
         </p>
       </ScrollReveal>
@@ -397,17 +400,17 @@ function ModuleListPage() {
                 className="w-3 h-3 rounded-full"
                 style={{ backgroundColor: phase.color }}
               />
-              <h2 className="font-display text-[20px] sm:text-[24px] text-aw-black">
+              <h2 className="font-display text-[20px] sm:text-[24px] text-app-heading">
                 {phase.name}
               </h2>
               <span
-                className="px-2.5 py-0.5 rounded-full text-[11px] font-body font-semibold text-white"
-                style={{ backgroundColor: phase.color }}
+                className="px-2.5 py-0.5 rounded-full text-[11px] font-body font-semibold border-2 bg-transparent"
+                style={{ borderColor: phase.color, color: phase.color }}
               >
                 {phase.level}
               </span>
             </div>
-            <p className="font-body text-[14px] text-aw-border-mid ml-6 mb-4">
+            <p className="font-body text-[14px] text-app-muted ml-6 mb-4">
               {phase.description}
             </p>
 
@@ -421,56 +424,56 @@ function ModuleListPage() {
                   <ScrollReveal key={mod.id} stagger={Math.min(modIdx + 1, 4)}>
                     <Link
                       to={`/modul/${mod.id}`}
-                      className="block bg-aw-card-bg border-2 border-aw-black rounded-[20px] p-4 sm:p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover"
+                      className="block bg-app-surface-card border border-app-strong rounded-[20px] p-4 sm:p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover"
                     >
                       <div className="flex items-center gap-2 mb-2 flex-wrap">
-                        <span className="font-body text-[13px] font-bold text-aw-black">
+                        <span className="font-body text-[13px] font-bold text-app-heading">
                           {String(mod.id).padStart(2, "0")}.
                         </span>
                         <span
-                          className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-body font-semibold text-white"
-                          style={{ backgroundColor: phase.color }}
+                          className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-body font-semibold border-2 bg-transparent"
+                          style={{ borderColor: phase.color, color: phase.color }}
                         >
                           {mod.level}
                         </span>
-                        <span className="text-[12px] text-aw-border-mid font-body">
+                        <span className="text-[12px] text-app-muted font-body">
                           {mod.chapterCount} chapter
                         </span>
                         {progress.completed > 0 && (
-                          <span className="text-[12px] font-body font-semibold text-aw-green ml-auto">
+                          <span className="text-[12px] font-body font-semibold text-app-success ml-auto">
                             {progress.completed}/{progress.total} selesai
                           </span>
                         )}
                       </div>
-                      <h3 className="font-body text-[17px] sm:text-[20px] font-bold text-aw-black leading-snug">
+                      <h3 className="font-body text-[17px] sm:text-[20px] font-bold text-app-heading leading-snug">
                         {mod.title}
                       </h3>
-                      <p className="font-subtitle text-[13px] sm:text-[14px] text-aw-black italic mt-0.5">
+                      <p className="font-subtitle text-[13px] sm:text-[14px] text-app-heading italic mt-0.5">
                         {mod.subtitle}
                       </p>
-                      <p className="font-body text-[13px] sm:text-[14px] text-aw-border-mid mt-2 leading-relaxed">
+                      <p className="font-body text-[13px] sm:text-[14px] text-app-muted mt-2 leading-relaxed">
                         {mod.description}
                       </p>
                       <div className="mt-3 flex items-center gap-4">
-                        <span className="inline-flex items-center gap-1 font-body text-[12px] text-aw-border-mid">
-                          <Lock size={12} /> {mod.prerequisites.split(".")[0]}
+                        <span className="inline-flex items-center gap-1 font-body text-[12px] text-app-muted">
+                          <BookOpen size={12} strokeWidth={1.75} /> {mod.prerequisites.split(".")[0]}
                         </span>
                       </div>
                       <div className="flex items-center justify-between mt-3">
-                        <span className="inline-flex items-center gap-1 font-body text-[13px] font-medium text-aw-blue">
-                          Lihat Chapter <ArrowRight size={13} />
+                        <span className="inline-flex items-center gap-1 font-body text-[13px] font-medium text-app-accent">
+                          Lihat Chapter <ArrowRight size={13} strokeWidth={1.75} />
                         </span>
                       </div>
 
                       {/* Mini progress bar */}
                       {progress.total > 0 && progress.completed > 0 && (
                         <div className="mt-3">
-                          <div className="w-full h-1.5 bg-aw-border-dim rounded-full overflow-hidden">
-                            <div
-                              className="h-full bg-aw-green rounded-full transition-all duration-500"
-                              style={{ width: `${progress.percentage}%` }}
-                            />
-                          </div>
+                        <div className="w-full h-1.5 bg-app-inset rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-app-success rounded-full transition-all duration-500"
+                          style={{ width: `${progress.percentage}%` }}
+                        />
+                      </div>
                         </div>
                       )}
                     </Link>
@@ -483,9 +486,9 @@ function ModuleListPage() {
             {phaseIdx < phases.length - 1 && (
               <div className="flex justify-center mt-6">
                 <div className="flex flex-col items-center gap-1">
-                  <div className="w-0.5 h-4 bg-aw-border-dim" />
-                  <ArrowRight size={14} className="text-aw-border-dim rotate-90" />
-                  <div className="w-0.5 h-4 bg-aw-border-dim" />
+                  <div className="w-0.5 h-4 bg-app-default" />
+                  <ArrowRight size={14} strokeWidth={1.75} className="text-app-subtle rotate-90" />
+                  <div className="w-0.5 h-4 bg-app-default" />
                 </div>
               </div>
             )}

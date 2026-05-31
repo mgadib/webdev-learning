@@ -14,6 +14,9 @@ import sql from "react-syntax-highlighter/dist/esm/languages/prism/sql";
 import docker from "react-syntax-highlighter/dist/esm/languages/prism/docker";
 import { useDarkMode } from "@/hooks/useDarkMode";
 
+const codeFontFamily =
+  "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Monaco, 'Courier New', monospace";
+
 // Register languages
 SyntaxHighlighter.registerLanguage("jsx", jsx);
 SyntaxHighlighter.registerLanguage("javascript", javascript);
@@ -39,9 +42,9 @@ interface CodeBlockProps {
 // Custom light theme - warm paper-like background
 const customLightTheme = {
   'code[class*="language-"]': {
-    color: "#2d2d2d",
+    color: "var(--app-code-text)",
     background: "none",
-    fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Monaco, 'Courier New', monospace",
+    fontFamily: codeFontFamily,
     fontSize: "12.5px",
     lineHeight: "1.7",
     textAlign: "left" as const,
@@ -53,9 +56,9 @@ const customLightTheme = {
     hyphens: "none" as const,
   },
   'pre[class*="language-"]': {
-    color: "#2d2d2d",
-    background: "#faf8f5",
-    fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Monaco, 'Courier New', monospace",
+    color: "var(--app-code-text)",
+    background: "var(--app-code-bg)",
+    fontFamily: codeFontFamily,
     fontSize: "12.5px",
     lineHeight: "1.7",
     textAlign: "left" as const,
@@ -108,9 +111,9 @@ const customLightTheme = {
 // Custom dark theme
 const customDarkTheme = {
   'code[class*="language-"]': {
-    color: "#e0e0e0",
+    color: "var(--app-code-text)",
     background: "none",
-    fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Monaco, 'Courier New', monospace",
+    fontFamily: codeFontFamily,
     fontSize: "12.5px",
     lineHeight: "1.7",
     textAlign: "left" as const,
@@ -122,9 +125,9 @@ const customDarkTheme = {
     hyphens: "none" as const,
   },
   'pre[class*="language-"]': {
-    color: "#e0e0e0",
-    background: "#1a1a2e",
-    fontFamily: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Monaco, 'Courier New', monospace",
+    color: "var(--app-code-text)",
+    background: "var(--app-code-bg)",
+    fontFamily: codeFontFamily,
     fontSize: "12.5px",
     lineHeight: "1.7",
     textAlign: "left" as const,
@@ -197,18 +200,15 @@ export default function CodeBlock({ code, language = "javascript", filename }: C
   const lang = mapLanguage(language);
   const theme = isDark ? customDarkTheme : customLightTheme;
 
-  // Header background colors
-  const headerBg = isDark ? "#16162a" : "#f0ece6";
   const dotColor = isDark
     ? ["#ff5f56", "#ffbd2e", "#27c93f"]
     : ["#e0443e", "#dea123", "#1aab29"];
 
   return (
-    <div className="code-block-wrapper my-5 rounded-xl overflow-hidden border border-[var(--aw-border-dim)] shadow-sm">
+    <div className="code-block-wrapper my-5 rounded-xl overflow-hidden border border-app-default shadow-sm">
       {/* Header bar */}
       <div
-        className="flex items-center justify-between px-4 py-2.5"
-        style={{ backgroundColor: headerBg }}
+        className="flex items-center justify-between px-4 py-2.5 bg-app-code-header"
       >
         <div className="flex items-center gap-2">
           {/* Window dots */}
@@ -222,7 +222,7 @@ export default function CodeBlock({ code, language = "javascript", filename }: C
             ))}
           </div>
           {/* Language badge */}
-          <span className="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/10 text-[var(--aw-black)] opacity-70">
+          <span className="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/10 text-app-heading opacity-70">
             {language}
           </span>
         </div>
@@ -240,7 +240,7 @@ export default function CodeBlock({ code, language = "javascript", filename }: C
         lineNumberStyle={{
           minWidth: "2em",
           paddingRight: "0.75em",
-          color: isDark ? "#4a4a6a" : "#b0b0b0",
+          color: "var(--app-text-subtle)",
           fontSize: "11px",
           textAlign: "right",
         }}

@@ -38,7 +38,7 @@ export default function TrailPaintCanvas({
     lastX: 0,
     lastY: 0,
     lastTime: 0,
-    brushColor: "#3B82F6",
+    brushColor: "",
     mouse: { x: -1000, y: -1000 },
     width: 0,
     height: 0,
@@ -59,7 +59,15 @@ export default function TrailPaintCanvas({
     const isMobile = window.innerWidth < 768;
     s.isInteractive = isHero && !isMobile;
 
-    const colors = ["#3B82F6", "#EC4899", "#F59E0B", "#10B981", "#8B5CF6", "#06B6D4"];
+    const rootStyles = getComputedStyle(document.documentElement);
+    const colors = [
+      "--app-accent",
+      "--app-text-body",
+      "--app-text-muted",
+      "--app-text-subtle",
+      "--app-border-strong",
+      "--app-border-default",
+    ].map((token) => rootStyles.getPropertyValue(token).trim()).filter(Boolean);
 
     function getBrushColor() {
       return colors[Math.floor(Math.random() * colors.length)];
@@ -260,7 +268,7 @@ export default function TrailPaintCanvas({
       style={{
         zIndex: 0,
         pointerEvents: isHero && !isMobile ? "auto" : "none",
-        opacity: isHero ? 1 : 0.03,
+        opacity: isHero ? 0.15 : 0.03,
       }}
     />
   );

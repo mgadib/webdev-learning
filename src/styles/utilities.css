@@ -1,0 +1,160 @@
+/* ============================================================
+   Semantic Utilities — Tailwind-compatible classes
+   Reference tokens.css for all values. Never hardcode here.
+   ============================================================ */
+
+@layer utilities {
+  /* ── APP BACKGROUND (namespaced; safe from shadcn collisions) ── */
+  .bg-app-page      { background-color: var(--app-page); }
+  .bg-app-surface   { background-color: var(--app-surface); }
+  .bg-app-elevated  { background-color: var(--app-elevated); }
+  .bg-app-inset     { background-color: var(--app-inset); }
+  .bg-app-inverse   { background-color: var(--app-inverse); }
+  .bg-app-overlay   { background-color: var(--app-overlay); }
+  .bg-app-surface-card       { background-color: var(--app-surface-card); }
+  .bg-app-surface-card-hover { background-color: var(--app-surface-card-hover); }
+  .bg-app-surface-chapter    { background-color: var(--app-surface-chapter); }
+  .bg-app-surface-input      { background-color: var(--app-surface-input); }
+  .bg-app-accent         { background-color: var(--app-accent); }
+  .bg-app-accent-hover   { background-color: var(--app-accent-hover); }
+  .bg-app-accent-subtle  { background-color: var(--app-accent-subtle); }
+  .bg-app-accent-muted   { background-color: var(--app-accent-muted); }
+  .bg-app-primary        { background-color: var(--app-primary); }
+  .bg-app-primary-hover  { background-color: var(--app-primary-hover); }
+  .bg-app-primary-subtle { background-color: var(--app-primary-subtle); }
+  .bg-app-primary-muted  { background-color: var(--app-primary-muted); }
+  .bg-app-success        { background-color: var(--app-success); }
+  .bg-app-success-subtle { background-color: var(--app-success-subtle); }
+  .bg-app-default        { background-color: var(--app-border-default); }
+  .bg-app-strong         { background-color: var(--app-border-strong); }
+  .bg-app-code-header    { background-color: var(--app-code-header); }
+  .bg-app-code           { background-color: var(--app-code-bg); }
+
+  /* ── APP FOREGROUND ── */
+  .text-app-heading  { color: var(--app-text-heading); }
+  .text-app-body     { color: var(--app-text-body); }
+  .text-app-muted    { color: var(--app-text-muted); }
+  .text-app-subtle   { color: var(--app-text-subtle); }
+  .text-app-disabled { color: var(--app-text-disabled); }
+  .text-app-accent   { color: var(--app-accent); }
+  .text-app-accent-hover { color: var(--app-accent-hover); }
+  .text-app-primary  { color: var(--app-primary); }
+  .text-app-primary-hover { color: var(--app-primary-hover); }
+  .text-app-success  { color: var(--app-success); }
+  .text-app-on-accent  { color: var(--app-on-accent); }
+  .text-app-on-primary { color: var(--app-on-primary); }
+  .text-app-on-success { color: var(--app-on-success); }
+  .text-app-code { color: var(--app-code-text); }
+  .fill-app-success { fill: var(--app-success); }
+
+  /* ── APP BORDER ── */
+  .border-app-subtle  { border-color: var(--app-border-subtle); }
+  .border-app-default { border-color: var(--app-border-default); }
+  .border-app-strong  { border-color: var(--app-border-strong); }
+  .border-app-inverse { border-color: var(--app-border-inverse); }
+  .border-app-accent  { border-color: var(--app-accent); }
+  .border-app-primary { border-color: var(--app-primary); }
+  .border-app-success { border-color: var(--app-success); }
+
+  /* ── SHADOWS ── */
+  .shadow-xs  { box-shadow: var(--shadow-xs); }
+  .shadow-sm  { box-shadow: var(--shadow-sm); }
+  .shadow-md  { box-shadow: var(--shadow-md); }
+  .shadow-lg  { box-shadow: var(--shadow-lg); }
+  .shadow-xl  { box-shadow: var(--shadow-xl); }
+  .shadow-card       { box-shadow: var(--shadow-card); }
+  .shadow-card-hover { box-shadow: var(--shadow-card-hover); }
+  .hover\:shadow-card-hover:hover { box-shadow: var(--shadow-card-hover); }
+
+  /* ── RADIUS ── */
+  .rounded-xs  { border-radius: var(--radius-xs); }
+  .rounded-sm  { border-radius: var(--radius-sm); }
+  .rounded-md  { border-radius: var(--radius-md); }
+  .rounded-lg  { border-radius: var(--radius-lg); }
+  .rounded-xl  { border-radius: var(--radius-xl); }
+  .rounded-2xl { border-radius: var(--radius-2xl); }
+
+  /* ── TRANSITION ── */
+  .transition-fast   { transition: all var(--transition-fast); }
+  .transition-normal { transition: all var(--transition-normal); }
+  .transition-slow   { transition: all var(--transition-slow); }
+
+  /* ── MAX WIDTH ── */
+  .max-w-content { max-width: 780px; margin-left: auto; margin-right: auto; }
+  .max-w-wide    { max-width: 960px; margin-left: auto; margin-right: auto; }
+
+  /* ── SCROLLBAR ── */
+  .scrollbar-thin::-webkit-scrollbar { width: 4px; height: 4px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: var(--app-border-default); border-radius: 2px; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+  /* ── SCROLL REVEAL ── */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  }
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .stagger-1 { transition-delay: 0.08s; }
+  .stagger-2 { transition-delay: 0.16s; }
+  .stagger-3 { transition-delay: 0.24s; }
+  .stagger-4 { transition-delay: 0.32s; }
+  .stagger-5 { transition-delay: 0.40s; }
+  .stagger-6 { transition-delay: 0.48s; }
+
+  /* ── GLOW BORDER (grayscale, subtle) ── */
+  .glow-wrapper {
+    position: relative;
+    padding: 2px;
+    border-radius: calc(var(--radius-xl) + 2px);
+    overflow: hidden;
+  }
+  .glow-wrapper .glow-inner {
+    background: var(--app-surface);
+    border-radius: var(--radius-xl);
+    position: relative;
+    z-index: 1;
+  }
+  .glow-wrapper .glow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: conic-gradient(
+      from 0deg,
+      var(--base-800),
+      var(--base-600),
+      var(--base-400),
+      var(--base-800)
+    );
+    animation: spin-glow 5s linear infinite;
+    filter: blur(6px);
+    opacity: 0.6;
+  }
+  @keyframes spin-glow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* ── CODE / INLINE ── */
+  .inline-code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Monaco, 'Courier New', monospace;
+    font-variant-ligatures: none;
+  }
+
+  /* ── SELECTION ── */
+  ::selection {
+    background: var(--app-accent-subtle);
+    color: var(--app-text-heading);
+  }
+
+  /* ── FOCUS ── */
+  :focus-visible {
+    outline: 2px solid var(--app-accent);
+    outline-offset: 2px;
+  }
+}

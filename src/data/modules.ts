@@ -474,42 +474,42 @@ export const phases = [
     name: "Fase 1: Fondasi Web",
     description: "Pahami cara kerja web sebelum ngoding. 4 modul untuk pemahaman fundamental.",
     modules: [1, 2, 3, 4],
-    color: "#10b981", // emerald
+    color: "var(--phase-1)",
     level: "Pemula",
   },
   {
     name: "Fase 2: Membangun Aplikasi",
     description: "Dari kode ke aplikasi production-ready. 4 modul untuk skill building.",
     modules: [5, 6, 7, 8],
-    color: "#3b82f6", // blue
+    color: "var(--phase-2)",
     level: "Menengah",
   },
   {
     name: "Fase 3: Spesialisasi",
     description: "Pilih jalur sesuai minat dan karir. 7 modul deep-dive lanjut.",
     modules: [9, 10, 11, 12, 13, 14, 15],
-    color: "#8b5cf6", // violet
+    color: "var(--phase-3)",
     level: "Lanjut",
   },
   {
     name: "Fase 4: Ekosistem Modern",
     description: "Tech stack produktivitas tinggi untuk development modern. 2 modul praktis.",
     modules: [16, 17],
-    color: "#f59e0b", // amber
+    color: "var(--phase-4)",
     level: "Menengah–Lanjut",
   },
   {
     name: "Fase 5: Skill Professional",
     description: "Tools dan practices yang digunakan developer profesional di industri. 4 modul essential.",
     modules: [18, 19, 20, 21],
-    color: "#ec4899", // pink
+    color: "var(--phase-5)",
     level: "Pemula–Menengah",
   },
   {
     name: "Fase 6: Advanced Engineering",
     description: "Engineering excellence untuk skala besar. 6 modul advanced: performance, accessibility, state management, database, security, dan system design.",
     modules: [22, 23, 24, 25, 26, 27],
-    color: "#dc2626", // red
+    color: "var(--phase-3)",
     level: "Menengah–Lanjut",
   },
 ];

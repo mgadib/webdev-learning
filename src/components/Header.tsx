@@ -13,11 +13,12 @@ import {
   Leaf,
   TreePine,
   Rocket,
-  Target,
+  Compass,
+  Map,
+  Terminal,
   Sparkles,
   Sun,
   Moon,
-  Code2,
   BookOpen,
 } from "lucide-react";
 import {
@@ -37,30 +38,30 @@ const levelFilters = [
     path: "/modul?level=pemula",
     description: "Fondasi web untuk pemula",
     icon: Leaf,
-    color: "#10b981",
+    color: "var(--app-accent)",
   },
   {
     label: "Menengah",
     path: "/modul?level=menengah",
     description: "Membangun aplikasi nyata",
     icon: TreePine,
-    color: "#3b82f6",
+    color: "var(--app-accent-hover)",
   },
   {
     label: "Lanjut",
     path: "/modul?level=lanjut",
     description: "Spesialisasi deep-dive",
     icon: Rocket,
-    color: "#8b5cf6",
+    color: "var(--app-primary)",
   },
 ];
 
 const pathIcons: Record<string, React.ReactNode> = {
-  monitor: <Monitor size={16} />,
-  server: <Server size={16} />,
-  layers: <Layers size={16} />,
-  cloud: <Cloud size={16} />,
-  shield: <Shield size={16} />,
+  monitor: <Monitor size={16} strokeWidth={1.75} />,
+  server: <Server size={16} strokeWidth={1.75} />,
+  layers: <Layers size={16} strokeWidth={1.75} />,
+  cloud: <Cloud size={16} strokeWidth={1.75} />,
+  shield: <Shield size={16} strokeWidth={1.75} />,
 };
 
 const fullstackMenu = [
@@ -69,14 +70,14 @@ const fullstackMenu = [
     path: "/modul/16",
     description: "React, Vite, Tailwind, shadcn/ui, Radix",
     icon: Monitor,
-    color: "#3b82f6",
+    color: "var(--app-accent)",
   },
   {
     label: "Backend Modern",
     path: "/modul/17",
     description: "Bun, Hono, Drizzle, Redis, Supabase",
     icon: Server,
-    color: "#f59e0b",
+    color: "var(--app-primary)",
   },
 ];
 
@@ -93,14 +94,8 @@ export default function Header() {
   }, [location.pathname, location.search]);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
   const isActive = (path: string) => {
@@ -113,18 +108,17 @@ export default function Header() {
     setMobileOpen(false);
   };
 
+  const navLinkBase = "flex items-center gap-1 font-body text-[13px] font-medium transition-normal px-2 py-2 rounded-md text-app-heading hover:bg-app-accent-subtle";
+  const navLinkActive = "bg-app-accent-subtle text-app-accent font-semibold";
+
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#121212]/95 backdrop-blur-sm border-b-2 border-aw-black dark:border-white/20 transition-colors">
+      <header className="fixed top-0 left-0 right-0 z-[--z-sticky] bg-app-elevated/90 backdrop-blur-md border-b border-app-default transition-normal">
         <div className="max-w-content mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0 group" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <GraduationCap
-              size={22}
-              strokeWidth={2}
-              className="text-aw-blue transition-transform group-hover:scale-110 shrink-0"
-            />
-            <span className="font-display text-[14px] sm:text-[16px] xl:text-[18px] text-aw-black dark:text-[#f0f0f0] transition-colors">
+            <GraduationCap size={22} strokeWidth={1.75} className="text-app-accent transition-normal group-hover:scale-110 shrink-0" />
+            <span className="font-display text-[14px] sm:text-[16px] xl:text-[18px] text-app-heading transition-normal">
               Webdev Learning
             </span>
           </Link>
@@ -134,40 +128,22 @@ export default function Header() {
             {/* Level Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-1 font-body text-[13px] font-medium text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10 px-2 py-2 rounded-lg transition-colors">
-                  <Target size={14} />
-                  Level
-                  <ChevronDown size={13} strokeWidth={2} />
+                <button className={navLinkBase}>
+                  <Compass size={14} strokeWidth={1.75} /> Level <ChevronDown size={13} strokeWidth={1.75} />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="center"
-                className="w-56 dark:bg-[#1a1a1a] dark:border-white/20"
-              >
-                <DropdownMenuLabel className="font-body text-[11px] text-aw-border-mid uppercase tracking-wide dark:text-gray-400">
-                  Pilih level
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator className="dark:bg-white/10" />
+              <DropdownMenuContent align="center" className="w-56 bg-app-elevated border-app-default">
+                <DropdownMenuLabel className="font-body text-[11px] text-app-muted uppercase tracking-wide">Pilih level</DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-app-default" />
                 {levelFilters.map((level) => (
-                  <DropdownMenuItem
-                    key={level.label}
-                    onClick={() => handleNavigate(level.path)}
-                    className="cursor-pointer dark:text-gray-200 dark:focus:bg-white/10"
-                  >
+                  <DropdownMenuItem key={level.label} onClick={() => handleNavigate(level.path)} className="cursor-pointer text-app-body focus:bg-app-surface-card-hover">
                     <div className="flex items-center gap-3 py-1">
-                      <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center text-white shrink-0"
-                        style={{ backgroundColor: level.color }}
-                      >
-                        <level.icon size={16} strokeWidth={2} />
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-app-on-accent shrink-0" style={{ backgroundColor: level.color }}>
+                        <level.icon size={16} strokeWidth={1.75} />
                       </div>
                       <div>
-                        <p className="font-body text-[14px] font-semibold">
-                          {level.label}
-                        </p>
-                        <p className="font-body text-[12px] text-aw-border-mid dark:text-gray-400">
-                          {level.description}
-                        </p>
+                        <p className="font-body text-[14px] font-semibold text-app-heading">{level.label}</p>
+                        <p className="font-body text-[12px] text-app-muted">{level.description}</p>
                       </div>
                     </div>
                   </DropdownMenuItem>
@@ -178,41 +154,22 @@ export default function Header() {
             {/* Jalur Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-1 font-body text-[13px] font-medium text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10 px-2 py-2 rounded-lg transition-colors">
-                  <GraduationCap size={14} />
-                  Jalur
-                  <ChevronDown size={13} strokeWidth={2} />
+                <button className={navLinkBase}>
+                  <Map size={14} strokeWidth={1.75} /> Jalur <ChevronDown size={13} strokeWidth={1.75} />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="center"
-                className="w-64 dark:bg-[#1a1a1a] dark:border-white/20"
-              >
-                <DropdownMenuLabel className="font-body text-[11px] text-aw-border-mid uppercase tracking-wide dark:text-gray-400">
-                  Pilih jalur karir
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator className="dark:bg-white/10" />
+              <DropdownMenuContent align="center" className="w-64 bg-app-elevated border-app-default">
+                <DropdownMenuLabel className="font-body text-[11px] text-app-muted uppercase tracking-wide">Pilih jalur karir</DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-app-default" />
                 {learningPaths.map((path) => (
-                  <DropdownMenuItem
-                    key={path.name}
-                    onClick={() =>
-                      handleNavigate(
-                        `/modul?jalur=${encodeURIComponent(path.name)}`
-                      )
-                    }
-                    className="cursor-pointer dark:text-gray-200 dark:focus:bg-white/10"
-                  >
+                  <DropdownMenuItem key={path.name} onClick={() => handleNavigate(`/modul?jalur=${encodeURIComponent(path.name)}`)} className="cursor-pointer text-app-body focus:bg-app-surface-card-hover">
                     <div className="flex items-center gap-3 py-1">
-                      <div className="w-8 h-8 rounded-full bg-aw-blue text-white flex items-center justify-center shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-app-accent text-app-on-accent flex items-center justify-center shrink-0">
                         {pathIcons[path.icon]}
                       </div>
                       <div>
-                        <p className="font-body text-[14px] font-semibold">
-                          {path.name}
-                        </p>
-                        <p className="font-body text-[12px] text-aw-border-mid dark:text-gray-400">
-                          {path.description}
-                        </p>
+                        <p className="font-body text-[14px] font-semibold text-app-heading">{path.name}</p>
+                        <p className="font-body text-[12px] text-app-muted">{path.description}</p>
                       </div>
                     </div>
                   </DropdownMenuItem>
@@ -223,40 +180,22 @@ export default function Header() {
             {/* Fullstack JS Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="flex items-center gap-1 font-body text-[13px] font-medium text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10 px-2 py-2 rounded-lg transition-colors">
-                  <Code2 size={14} />
-                  Fullstack JS
-                  <ChevronDown size={13} strokeWidth={2} />
+                <button className={navLinkBase}>
+                  <Terminal size={14} strokeWidth={1.75} /> Fullstack JS <ChevronDown size={13} strokeWidth={1.75} />
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="center"
-                className="w-64 dark:bg-[#1a1a1a] dark:border-white/20"
-              >
-                <DropdownMenuLabel className="font-body text-[11px] text-aw-border-mid uppercase tracking-wide dark:text-gray-400">
-                  Ekosistem Modern
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator className="dark:bg-white/10" />
+              <DropdownMenuContent align="center" className="w-64 bg-app-elevated border-app-default">
+                <DropdownMenuLabel className="font-body text-[11px] text-app-muted uppercase tracking-wide">Ekosistem Modern</DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-app-default" />
                 {fullstackMenu.map((item) => (
-                  <DropdownMenuItem
-                    key={item.label}
-                    onClick={() => handleNavigate(item.path)}
-                    className="cursor-pointer dark:text-gray-200 dark:focus:bg-white/10"
-                  >
+                  <DropdownMenuItem key={item.label} onClick={() => handleNavigate(item.path)} className="cursor-pointer text-app-body focus:bg-app-surface-card-hover">
                     <div className="flex items-center gap-3 py-1">
-                      <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center text-white shrink-0"
-                        style={{ backgroundColor: item.color }}
-                      >
-                        <item.icon size={16} />
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-app-on-accent shrink-0" style={{ backgroundColor: item.color }}>
+                        <item.icon size={16} strokeWidth={1.75} />
                       </div>
                       <div>
-                        <p className="font-body text-[14px] font-semibold">
-                          {item.label}
-                        </p>
-                        <p className="font-body text-[12px] text-aw-border-mid dark:text-gray-400">
-                          {item.description}
-                        </p>
+                        <p className="font-body text-[14px] font-semibold text-app-heading">{item.label}</p>
+                        <p className="font-body text-[12px] text-app-muted">{item.description}</p>
                       </div>
                     </div>
                   </DropdownMenuItem>
@@ -265,62 +204,37 @@ export default function Header() {
             </DropdownMenu>
 
             {/* Glosarium */}
-            <Link
-              to="/glosarium"
-              aria-current={isActive("/glosarium") ? "page" : undefined}
-              className={`flex items-center gap-1 font-body text-[13px] font-medium transition-colors px-2 py-2 rounded-lg ${
-                isActive("/glosarium")
-                  ? "bg-aw-blue/10 text-aw-blue font-semibold"
-                  : "text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10"
-              }`}
+            <Link to="/glosarium" aria-current={isActive("/glosarium") ? "page" : undefined}
+              className={`${navLinkBase} ${isActive("/glosarium") ? navLinkActive : ""}`}
             >
-              <BookOpen size={14} strokeWidth={2} />
-              Glosarium
+              <BookOpen size={14} strokeWidth={1.75} /> Glosarium
             </Link>
 
             {/* Tentang */}
-            <Link
-              to="/tentang"
-              aria-current={isActive("/tentang") ? "page" : undefined}
-              className={`flex items-center gap-1 font-body text-[13px] font-medium transition-colors px-2 py-2 rounded-lg ${
-                isActive("/tentang")
-                  ? "bg-aw-blue/10 text-aw-blue font-semibold"
-                  : "text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10"
-              }`}
+            <Link to="/tentang" aria-current={isActive("/tentang") ? "page" : undefined}
+              className={`${navLinkBase} ${isActive("/tentang") ? navLinkActive : ""}`}
             >
-              <Sparkles size={14} strokeWidth={2} />
-              Tentang
+              <Sparkles size={14} strokeWidth={1.75} /> Tentang
             </Link>
 
             {/* Divider */}
-            <div className="w-px h-5 bg-aw-border-dim dark:bg-white/20 mx-0.5" />
+            <div className="w-px h-5 bg-app-default mx-1" />
 
             {/* Dark mode toggle */}
-            <button
-              onClick={toggle}
-              className="flex items-center justify-center w-9 h-9 rounded-lg text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10 transition-colors"
-              aria-label={isDark ? "Light mode" : "Dark mode"}
-              title={isDark ? "Light mode" : "Dark mode"}
+            <button onClick={toggle} className="flex items-center justify-center w-9 h-9 rounded-md text-app-heading hover:bg-app-surface-card-hover transition-normal"
+              aria-label={isDark ? "Light mode" : "Dark mode"} title={isDark ? "Light mode" : "Dark mode"}
             >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              {isDark ? <Sun size={18} strokeWidth={1.75} /> : <Moon size={18} strokeWidth={1.75} />}
             </button>
           </nav>
 
           {/* Mobile: hamburger + dark toggle */}
           <div className="flex items-center gap-1 xl:hidden">
-            <button
-              onClick={toggle}
-              className="flex items-center justify-center w-10 h-10 rounded-lg text-aw-black dark:text-[#f0f0f0]"
-              aria-label={isDark ? "Light mode" : "Dark mode"}
-            >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            <button onClick={toggle} className="flex items-center justify-center w-10 h-10 rounded-md text-app-heading" aria-label={isDark ? "Light mode" : "Dark mode"}>
+              {isDark ? <Sun size={20} strokeWidth={1.75} /> : <Moon size={20} strokeWidth={1.75} />}
             </button>
-            <button
-              className="p-2"
-              onClick={() => setMobileOpen(true)}
-              aria-label="Open menu"
-            >
-              <Menu size={24} className="text-aw-black dark:text-[#f0f0f0]" />
+            <button className="p-2" onClick={() => setMobileOpen(true)} aria-label="Open menu">
+              <Menu size={24} strokeWidth={1.75} className="text-app-heading" />
             </button>
           </div>
         </div>
@@ -328,39 +242,22 @@ export default function Header() {
 
       {/* Mobile overlay */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[100] bg-white dark:bg-[#121212] flex flex-col xl:hidden animate-in fade-in duration-200 transition-colors">
-          <div className="flex items-center justify-between px-4 h-14 border-b-2 border-aw-black dark:border-white/20">
+        <div className="fixed inset-0 z-[--z-modal] bg-app-elevated flex flex-col xl:hidden animate-in fade-in duration-200 transition-normal">
+          <div className="flex items-center justify-between px-4 h-14 border-b border-app-default">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setMobileOpen(false); }}>
-              <GraduationCap
-                size={22}
-                strokeWidth={2}
-                className="text-aw-blue shrink-0"
-              />
-              <span className="font-display text-[14px] text-aw-black dark:text-[#f0f0f0]">
-                Webdev Learning
-              </span>
+              <GraduationCap size={22} strokeWidth={1.75} className="text-app-accent shrink-0" />
+              <span className="font-display text-[14px] text-app-heading">Webdev Learning</span>
             </div>
-            <button
-              className="p-2"
-              onClick={() => {
-                setMobileOpen(false);
-                setMobileSubmenu(null);
-              }}
-              aria-label="Close menu"
-            >
-              <X size={24} className="text-aw-black dark:text-[#f0f0f0]" />
+            <button className="p-2" onClick={() => { setMobileOpen(false); setMobileSubmenu(null); }} aria-label="Close menu">
+              <X size={24} strokeWidth={1.75} className="text-app-heading" />
             </button>
           </div>
 
           <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-1">
             {/* Beranda */}
-            <Link
-              to="/"
-              aria-current={isActive("/") ? "page" : undefined}
-              className={`font-body text-[16px] font-medium py-3 px-4 rounded-xl transition-colors ${
-                isActive("/")
-                  ? "bg-aw-blue/10 text-aw-blue font-semibold"
-                  : "text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10"
+            <Link to="/" aria-current={isActive("/") ? "page" : undefined}
+              className={`font-body text-[16px] font-medium py-3 px-4 rounded-xl transition-normal ${
+                isActive("/") ? `${navLinkActive}` : "text-app-heading hover:bg-app-surface-card-hover"
               }`}
               onClick={() => setMobileOpen(false)}
             >
@@ -369,45 +266,24 @@ export default function Header() {
 
             {/* Level submenu */}
             <div>
-              <button
-                onClick={() =>
-                  setMobileSubmenu(
-                    mobileSubmenu === "level" ? null : "level"
-                  )
-                }
-                className="w-full flex items-center justify-between font-body text-[16px] font-medium py-3 px-4 rounded-xl text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10"
+              <button onClick={() => setMobileSubmenu(mobileSubmenu === "level" ? null : "level")}
+                className="w-full flex items-center justify-between font-body text-[16px] font-medium py-3 px-4 rounded-xl text-app-heading hover:bg-app-surface-card-hover transition-normal"
               >
-                <span className="flex items-center gap-3">
-                  <Target size={20} /> Level
-                </span>
-                <ChevronDown
-                  size={18}
-                  className={`transition-transform ${
-                    mobileSubmenu === "level" ? "rotate-180" : ""
-                  }`}
-                />
+                <span className="flex items-center gap-3"><Compass size={20} strokeWidth={1.75} /> Level</span>
+                <ChevronDown size={18} strokeWidth={1.75} className={`transition-normal ${mobileSubmenu === "level" ? "rotate-180" : ""}`} />
               </button>
               {mobileSubmenu === "level" && (
                 <div className="ml-4 flex flex-col gap-1 mt-1">
                   {levelFilters.map((level) => (
-                    <button
-                      key={level.label}
-                      onClick={() => handleNavigate(level.path)}
-                      className="flex items-center gap-3 py-3 px-4 rounded-xl text-left hover:bg-gray-100 dark:hover:bg-white/10"
+                    <button key={level.label} onClick={() => handleNavigate(level.path)}
+                      className="flex items-center gap-3 py-3 px-4 rounded-xl text-left hover:bg-app-surface-card-hover transition-normal"
                     >
-                      <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center text-white shrink-0"
-                        style={{ backgroundColor: level.color }}
-                      >
-                        <level.icon size={16} strokeWidth={2} />
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-app-on-accent shrink-0" style={{ backgroundColor: level.color }}>
+                        <level.icon size={16} strokeWidth={1.75} />
                       </div>
                       <div>
-                        <p className="font-body text-[15px] font-semibold text-aw-black dark:text-[#f0f0f0]">
-                          {level.label}
-                        </p>
-                        <p className="font-body text-[12px] text-aw-border-mid dark:text-gray-400">
-                          {level.description}
-                        </p>
+                        <p className="font-body text-[15px] font-semibold text-app-heading">{level.label}</p>
+                        <p className="font-body text-[12px] text-app-muted">{level.description}</p>
                       </div>
                     </button>
                   ))}
@@ -417,46 +293,24 @@ export default function Header() {
 
             {/* Jalur submenu */}
             <div>
-              <button
-                onClick={() =>
-                  setMobileSubmenu(
-                    mobileSubmenu === "jalur" ? null : "jalur"
-                  )
-                }
-                className="w-full flex items-center justify-between font-body text-[16px] font-medium py-3 px-4 rounded-xl text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10"
+              <button onClick={() => setMobileSubmenu(mobileSubmenu === "jalur" ? null : "jalur")}
+                className="w-full flex items-center justify-between font-body text-[16px] font-medium py-3 px-4 rounded-xl text-app-heading hover:bg-app-surface-card-hover transition-normal"
               >
-                <span className="flex items-center gap-3">
-                  <GraduationCap size={20} /> Jalur
-                </span>
-                <ChevronDown
-                  size={18}
-                  className={`transition-transform ${
-                    mobileSubmenu === "jalur" ? "rotate-180" : ""
-                  }`}
-                />
+                <span className="flex items-center gap-3"><Map size={20} strokeWidth={1.75} /> Jalur</span>
+                <ChevronDown size={18} strokeWidth={1.75} className={`transition-normal ${mobileSubmenu === "jalur" ? "rotate-180" : ""}`} />
               </button>
               {mobileSubmenu === "jalur" && (
                 <div className="ml-4 flex flex-col gap-1 mt-1">
                   {learningPaths.map((path) => (
-                    <button
-                      key={path.name}
-                      onClick={() =>
-                        handleNavigate(
-                          `/modul?jalur=${encodeURIComponent(path.name)}`
-                        )
-                      }
-                      className="flex items-center gap-3 py-3 px-4 rounded-xl text-left hover:bg-gray-100 dark:hover:bg-white/10"
+                    <button key={path.name} onClick={() => handleNavigate(`/modul?jalur=${encodeURIComponent(path.name)}`)}
+                      className="flex items-center gap-3 py-3 px-4 rounded-xl text-left hover:bg-app-surface-card-hover transition-normal"
                     >
-                      <div className="w-8 h-8 rounded-full bg-aw-blue text-white flex items-center justify-center shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-app-accent text-app-on-accent flex items-center justify-center shrink-0">
                         {pathIcons[path.icon]}
                       </div>
                       <div>
-                        <p className="font-body text-[15px] font-semibold text-aw-black dark:text-[#f0f0f0]">
-                          {path.name}
-                        </p>
-                        <p className="font-body text-[12px] text-aw-border-mid dark:text-gray-400">
-                          {path.description}
-                        </p>
+                        <p className="font-body text-[15px] font-semibold text-app-heading">{path.name}</p>
+                        <p className="font-body text-[12px] text-app-muted">{path.description}</p>
                       </div>
                     </button>
                   ))}
@@ -466,45 +320,24 @@ export default function Header() {
 
             {/* Fullstack JS submenu */}
             <div>
-              <button
-                onClick={() =>
-                  setMobileSubmenu(
-                    mobileSubmenu === "fullstack" ? null : "fullstack"
-                  )
-                }
-                className="w-full flex items-center justify-between font-body text-[16px] font-medium py-3 px-4 rounded-xl text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10"
+              <button onClick={() => setMobileSubmenu(mobileSubmenu === "fullstack" ? null : "fullstack")}
+                className="w-full flex items-center justify-between font-body text-[16px] font-medium py-3 px-4 rounded-xl text-app-heading hover:bg-app-surface-card-hover transition-normal"
               >
-                <span className="flex items-center gap-3">
-                  <Code2 size={20} /> Fullstack JS
-                </span>
-                <ChevronDown
-                  size={18}
-                  className={`transition-transform ${
-                    mobileSubmenu === "fullstack" ? "rotate-180" : ""
-                  }`}
-                />
+                <span className="flex items-center gap-3"><Terminal size={20} strokeWidth={1.75} /> Fullstack JS</span>
+                <ChevronDown size={18} strokeWidth={1.75} className={`transition-normal ${mobileSubmenu === "fullstack" ? "rotate-180" : ""}`} />
               </button>
               {mobileSubmenu === "fullstack" && (
                 <div className="ml-4 flex flex-col gap-1 mt-1">
                   {fullstackMenu.map((item) => (
-                    <button
-                      key={item.label}
-                      onClick={() => handleNavigate(item.path)}
-                      className="flex items-center gap-3 py-3 px-4 rounded-xl text-left hover:bg-gray-100 dark:hover:bg-white/10"
+                    <button key={item.label} onClick={() => handleNavigate(item.path)}
+                      className="flex items-center gap-3 py-3 px-4 rounded-xl text-left hover:bg-app-surface-card-hover transition-normal"
                     >
-                      <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center text-white shrink-0"
-                        style={{ backgroundColor: item.color }}
-                      >
-                        <item.icon size={16} />
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-app-on-accent shrink-0" style={{ backgroundColor: item.color }}>
+                        <item.icon size={16} strokeWidth={1.75} />
                       </div>
                       <div>
-                        <p className="font-body text-[15px] font-semibold text-aw-black dark:text-[#f0f0f0]">
-                          {item.label}
-                        </p>
-                        <p className="font-body text-[12px] text-aw-border-mid dark:text-gray-400">
-                          {item.description}
-                        </p>
+                        <p className="font-body text-[15px] font-semibold text-app-heading">{item.label}</p>
+                        <p className="font-body text-[12px] text-app-muted">{item.description}</p>
                       </div>
                     </button>
                   ))}
@@ -513,31 +346,23 @@ export default function Header() {
             </div>
 
             {/* Glosarium */}
-            <Link
-              to="/glosarium"
-              aria-current={isActive("/glosarium") ? "page" : undefined}
-              className={`flex items-center gap-3 font-body text-[16px] font-medium py-3 px-4 rounded-xl transition-colors ${
-                isActive("/glosarium")
-                  ? "bg-aw-blue/10 text-aw-blue font-semibold"
-                  : "text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10"
+            <Link to="/glosarium" aria-current={isActive("/glosarium") ? "page" : undefined}
+              className={`flex items-center gap-3 font-body text-[16px] font-medium py-3 px-4 rounded-xl transition-normal ${
+                isActive("/glosarium") ? navLinkActive : "text-app-heading hover:bg-app-surface-card-hover"
               }`}
               onClick={() => setMobileOpen(false)}
             >
-              <BookOpen size={20} strokeWidth={2} /> Glosarium
+              <BookOpen size={20} strokeWidth={1.75} /> Glosarium
             </Link>
 
             {/* Tentang */}
-            <Link
-              to="/tentang"
-              aria-current={isActive("/tentang") ? "page" : undefined}
-              className={`flex items-center gap-3 font-body text-[16px] font-medium py-3 px-4 rounded-xl transition-colors ${
-                isActive("/tentang")
-                  ? "bg-aw-blue/10 text-aw-blue font-semibold"
-                  : "text-aw-black dark:text-[#f0f0f0] hover:bg-gray-100 dark:hover:bg-white/10"
+            <Link to="/tentang" aria-current={isActive("/tentang") ? "page" : undefined}
+              className={`flex items-center gap-3 font-body text-[16px] font-medium py-3 px-4 rounded-xl transition-normal ${
+                isActive("/tentang") ? navLinkActive : "text-app-heading hover:bg-app-surface-card-hover"
               }`}
               onClick={() => setMobileOpen(false)}
             >
-              <Sparkles size={20} strokeWidth={2} /> Tentang
+              <Sparkles size={20} strokeWidth={1.75} /> Tentang
             </Link>
           </div>
         </div>

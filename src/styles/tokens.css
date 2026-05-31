@@ -1,0 +1,355 @@
+/* ============================================================
+   Design System Tokens — Single Source of Truth (SSOT)
+   ============================================================
+   
+   Layer 1: Primitive Tokens (Base colors, raw values)
+   Layer 2: Semantic Tokens (Contextual meaning)
+   Layer 3: shadcn/ui Integration (HSL mappings)
+   
+   Rules:
+   - Never hardcode hex values outside this file
+   - Always reference semantic tokens in components
+   - Dark mode flips via CSS variable redefinition
+   ============================================================ */
+
+@layer base {
+  /* ────────────────────────────────────────────────────────────
+     PRIMITIVE TOKENS — Light Mode
+     ──────────────────────────────────────────────────────────── */
+  :root {
+    /* Base color scale (warm grayscale) */
+    --base-50:  #FFFDF7;
+    --base-100: #F9F6F0;
+    --base-150: #F5F2EC;
+    --base-200: #F1EEE8;
+    --base-300: #E6E2DB;
+    --base-400: #D0CCC6;
+    --base-500: #B0A99F;
+    --base-600: #8C8279;
+    --base-700: #7A756D;
+    --base-800: #555555;
+    --base-900: #2D2A26;
+    --base-950: #1A1714;
+
+    /* ── SEMANTIC: Background ── */
+    --bg-page:      var(--base-50);
+    --bg-surface:   var(--base-100);
+    --bg-elevated:  #FFFFFF;
+    --bg-inset:     var(--base-150);
+    --bg-inverse:   var(--base-900);
+    --bg-overlay:   rgba(26, 23, 20, 0.40);
+
+    /* ── SEMANTIC: Foreground ── */
+    --fg-heading:   var(--base-900);
+    --fg-body:      var(--base-800);
+    --fg-muted:     var(--base-600);
+    --fg-subtle:    var(--base-500);
+    --fg-inverse:   var(--base-100);
+    --fg-disabled:  var(--base-400);
+
+    /* ── SEMANTIC: Border ── */
+    --border-subtle:  color-mix(in srgb, var(--base-900) 8%,  transparent);
+    --border-default: color-mix(in srgb, var(--base-900) 16%, transparent);
+    --border-strong:  color-mix(in srgb, var(--base-900) 28%, transparent);
+    --border-inverse: color-mix(in srgb, var(--base-100) 20%, transparent);
+    --border-muted:   var(--base-400);
+
+    /* ── PHASE COLORS (adaptive) ── */
+    --phase-1: var(--base-900);
+    --phase-2: var(--base-800);
+    --phase-3: #6F665F;
+    --phase-4: #635D56;
+    --phase-5: #5B665F;
+    --phase-6: #5E626F;
+
+    /* ── SEMANTIC: Accent / Interactive ── */
+    --accent:         var(--base-900);
+    --accent-hover:   var(--base-800);
+    --accent-subtle:  color-mix(in srgb, var(--base-900) 6%,  transparent);
+    --accent-muted:   color-mix(in srgb, var(--base-900) 12%, transparent);
+    --accent-inverse: var(--base-100);
+
+    /* ── SEMANTIC: Primary (CTA buttons) ── */
+    --primary:        #1E6B5E;
+    --primary-hover:  #15544A;
+    --primary-subtle: color-mix(in srgb, #1E6B5E 8%,  transparent);
+    --primary-muted:  color-mix(in srgb, #1E6B5E 16%, transparent);
+    --primary-inverse: #FFFFFF;
+
+    /* ── SEMANTIC: Status ── */
+    --success:        #059669;
+    --success-subtle: color-mix(in srgb, #059669 10%, transparent);
+
+    /* ── SEMANTIC: Surface variants ── */
+    --surface-card:       var(--base-100);
+    --surface-card-hover: var(--base-150);
+    --surface-chapter:    var(--base-200);
+    --surface-input:      var(--base-200);
+
+    /* ── APP NAMESPACE (keeps app tokens separate from shadcn HSL vars) ── */
+    --app-page:       var(--bg-page);
+    --app-surface:    var(--bg-surface);
+    --app-elevated:   var(--bg-elevated);
+    --app-inset:      var(--bg-inset);
+    --app-inverse:    var(--bg-inverse);
+    --app-overlay:    var(--bg-overlay);
+    --app-surface-card:       var(--surface-card);
+    --app-surface-card-hover: var(--surface-card-hover);
+    --app-surface-chapter:    var(--surface-chapter);
+    --app-surface-input:      var(--surface-input);
+
+    --app-text-heading:  var(--fg-heading);
+    --app-text-body:     var(--fg-body);
+    --app-text-muted:    #6F6A62;
+    --app-text-subtle:   #6F6A62;
+    --app-text-disabled: var(--fg-disabled);
+
+    --app-border-subtle:  var(--border-subtle);
+    --app-border-default: var(--border-default);
+    --app-border-strong:  var(--border-strong);
+    --app-border-inverse: var(--border-inverse);
+
+    --app-accent:         var(--base-900);
+    --app-accent-hover:   var(--base-800);
+    --app-accent-subtle:  color-mix(in srgb, var(--base-900) 6%,  transparent);
+    --app-accent-muted:   color-mix(in srgb, var(--base-900) 12%, transparent);
+    --app-on-accent:      var(--base-100);
+
+    --app-primary:        #1E6B5E;
+    --app-primary-hover:  #15544A;
+    --app-primary-subtle: color-mix(in srgb, #1E6B5E 8%,  transparent);
+    --app-primary-muted:  color-mix(in srgb, #1E6B5E 16%, transparent);
+    --app-on-primary:     #FFFFFF;
+
+    --app-success:        #047857;
+    --app-success-subtle: color-mix(in srgb, #047857 10%, transparent);
+    --app-on-success:     #FFFFFF;
+
+    --app-code-header:    var(--base-200);
+    --app-code-bg:        #FAF8F5;
+    --app-code-text:      var(--base-900);
+
+    /* ── GEOMETRY ── */
+    --radius-xs:  6px;
+    --radius-sm:  8px;
+    --radius-md:  12px;
+    --radius-lg:  16px;
+    --radius-xl:  20px;
+    --radius-2xl: 24px;
+    --radius-full: 9999px;
+
+    /* ── SPACING SCALE (8px base) ── */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-10: 40px;
+    --space-12: 48px;
+    --space-16: 64px;
+
+    /* ── SHADOWS (subtle, warm) ── */
+    --shadow-xs:  0 1px  2px  rgba(45, 42, 38, 0.04);
+    --shadow-sm:  0 2px  8px  rgba(45, 42, 38, 0.06);
+    --shadow-md:  0 4px  16px rgba(45, 42, 38, 0.08);
+    --shadow-lg:  0 8px  24px rgba(45, 42, 38, 0.10);
+    --shadow-xl:  0 12px 32px rgba(45, 42, 38, 0.12);
+    --shadow-card: 0 2px 12px rgba(45, 42, 38, 0.08);
+    --shadow-card-hover: 0 8px 24px rgba(45, 42, 38, 0.12);
+
+    /* ── TRANSITIONS ── */
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out:     cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out:  cubic-bezier(0.4, 0, 0.2, 1);
+    --duration-fast:   150ms;
+    --duration-normal: 200ms;
+    --duration-slow:   300ms;
+    --transition-fast:   var(--duration-fast)   var(--ease-default);
+    --transition-normal: var(--duration-normal) var(--ease-default);
+    --transition-slow:   var(--duration-slow)   var(--ease-default);
+
+    /* ── Z-INDEX SCALE ── */
+    --z-base:     0;
+    --z-dropdown: 50;
+    --z-sticky:   100;
+    --z-modal:    200;
+    --z-popover:  300;
+    --z-toast:    400;
+
+    /* ────────────────────────────────────────────────────────────
+       SHADCN/UI INTEGRATION — HSL Tokens
+       Mapped to warm grayscale palette
+       ──────────────────────────────────────────────────────────── */
+    --background: 40 33% 98%;      /* base-50  */
+    --foreground: 30 12% 16%;      /* base-900 */
+    --card: 40 20% 96%;            /* base-100 */
+    --card-foreground: 30 12% 16%;
+    --popover: 0 0% 100%;          /* white    */
+    --popover-foreground: 30 12% 16%;
+    --primary: 30 12% 16%;         /* base-900 */
+    --primary-foreground: 40 20% 96%;
+    --secondary: 35 14% 93%;       /* base-200 */
+    --secondary-foreground: 30 12% 16%;
+    --muted: 35 14% 93%;
+    --muted-foreground: 30 8% 51%;
+    --accent: 35 14% 93%;
+    --accent-foreground: 30 12% 16%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 10% 88%;
+    --input: 30 10% 88%;
+    --ring: 30 12% 16%;
+    --radius: 0.5rem;
+
+    /* Chart colors (subdued warm) */
+    --chart-1: 30 12% 16%;
+    --chart-2: 30 8% 40%;
+    --chart-3: 30 6% 55%;
+    --chart-4: 30 4% 70%;
+    --chart-5: 30 2% 85%;
+  }
+
+  /* ────────────────────────────────────────────────────────────
+     DARK MODE — Semantic overrides (warm tone, konsisten)
+     ──────────────────────────────────────────────────────────── */
+  .dark {
+    /* Primitive inversions - warm dark */
+    --base-50:  #1C1917;
+    --base-100: #262320;
+    --base-150: #302C28;
+    --base-200: #3A3530;
+    --base-300: #4A443E;
+    --base-400: #6B635C;
+    --base-500: #8A8078;
+    --base-600: #A89E96;
+    --base-700: #C4BBB2;
+    --base-800: #DCD4CB;
+    --base-900: #F0EBE5;
+    --base-950: #FAF7F2;
+
+    /* Semantic inversions */
+    --bg-page:      var(--base-50);
+    --bg-surface:   var(--base-100);
+    --bg-elevated:  var(--base-150);
+    --bg-inset:     #141210;
+    --bg-inverse:   var(--base-900);
+    --bg-overlay:   rgba(0, 0, 0, 0.60);
+
+    --fg-heading:   var(--base-900);
+    --fg-body:      var(--base-700);
+    --fg-muted:     var(--base-600);
+    --fg-subtle:    var(--base-500);
+    --fg-inverse:   var(--base-100);
+    --fg-disabled:  var(--base-400);
+
+    --border-subtle:  rgba(240, 235, 229, 0.08);
+    --border-default: rgba(240, 235, 229, 0.15);
+    --border-strong:  rgba(240, 235, 229, 0.25);
+    --border-inverse: rgba(240, 235, 229, 0.20);
+    --border-muted:   var(--base-400);
+
+    /* Phase colors in dark mode - warm and visible */
+    --phase-1: #F0EBE5;
+    --phase-2: #DCD4CB;
+    --phase-3: #C4BBB2;
+    --phase-4: #A89E96;
+    --phase-5: #A89E96;
+    --phase-6: #C4BBB2;
+
+    --accent:         var(--base-900);
+    --accent-hover:   var(--base-800);
+    --accent-subtle:  rgba(240, 235, 229, 0.06);
+    --accent-muted:   rgba(240, 235, 229, 0.12);
+    --accent-inverse: var(--base-100);
+
+    /* Primary (CTA) - teal yang lebih terang di dark mode */
+    --primary:        #4FD1B8;
+    --primary-hover:  #6EE7D0;
+    --primary-subtle: rgba(79, 209, 184, 0.10);
+    --primary-muted:  rgba(79, 209, 184, 0.20);
+    --primary-inverse: #1C1917;
+
+    /* Success - hijau yang terlihat */
+    --success:        #4ADE80;
+    --success-subtle: rgba(74, 222, 128, 0.12);
+
+    --surface-card:       var(--base-100);
+    --surface-card-hover: var(--base-150);
+    --surface-chapter:    var(--base-200);
+    --surface-input:      var(--base-200);
+
+    --app-page:       var(--bg-page);
+    --app-surface:    var(--bg-surface);
+    --app-elevated:   var(--bg-elevated);
+    --app-inset:      var(--bg-inset);
+    --app-inverse:    var(--bg-inverse);
+    --app-overlay:    var(--bg-overlay);
+    --app-surface-card:       var(--surface-card);
+    --app-surface-card-hover: var(--surface-card-hover);
+    --app-surface-chapter:    var(--surface-chapter);
+    --app-surface-input:      var(--surface-input);
+
+    --app-text-heading:  var(--fg-heading);
+    --app-text-body:     var(--fg-body);
+    --app-text-muted:    var(--base-700);
+    --app-text-subtle:   var(--base-600);
+    --app-text-disabled: var(--fg-disabled);
+
+    --app-border-subtle:  var(--border-subtle);
+    --app-border-default: var(--border-default);
+    --app-border-strong:  var(--border-strong);
+    --app-border-inverse: var(--border-inverse);
+
+    --app-accent:         var(--base-900);
+    --app-accent-hover:   var(--base-800);
+    --app-accent-subtle:  rgba(240, 235, 229, 0.06);
+    --app-accent-muted:   rgba(240, 235, 229, 0.12);
+    --app-on-accent:      var(--base-100);
+
+    --app-primary:        #4FD1B8;
+    --app-primary-hover:  #6EE7D0;
+    --app-primary-subtle: rgba(79, 209, 184, 0.10);
+    --app-primary-muted:  rgba(79, 209, 184, 0.20);
+    --app-on-primary:     #1C1917;
+
+    --app-success:        #4ADE80;
+    --app-success-subtle: rgba(74, 222, 128, 0.12);
+    --app-on-success:     #1C1917;
+
+    --app-code-header:    var(--base-200);
+    --app-code-bg:        #181512;
+    --app-code-text:      var(--base-900);
+
+    /* Shadows (inverted for dark) */
+    --shadow-xs:  0 1px  2px  rgba(0, 0, 0, 0.30);
+    --shadow-sm:  0 2px  8px  rgba(0, 0, 0, 0.35);
+    --shadow-md:  0 4px  16px rgba(0, 0, 0, 0.40);
+    --shadow-lg:  0 8px  24px rgba(0, 0, 0, 0.45);
+    --shadow-xl:  0 12px 32px rgba(0, 0, 0, 0.50);
+    --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.35);
+    --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.45);
+
+    /* shadcn dark - warm tone */
+    --background: 24 14% 8%;
+    --foreground: 30 20% 94%;
+    --card: 24 10% 12%;
+    --card-foreground: 30 20% 94%;
+    --popover: 24 10% 12%;
+    --popover-foreground: 30 20% 94%;
+    --primary: 163 50% 55%;
+    --primary-foreground: 24 14% 8%;
+    --secondary: 24 8% 18%;
+    --secondary-foreground: 30 20% 94%;
+    --muted: 24 8% 18%;
+    --muted-foreground: 24 8% 60%;
+    --accent: 24 8% 18%;
+    --accent-foreground: 30 20% 94%;
+    --destructive: 0 62.8% 40%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 24 8% 20%;
+    --input: 24 8% 20%;
+    --ring: 163 50% 55%;
+  }
+}

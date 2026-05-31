@@ -15,17 +15,17 @@ import { useSEO } from "@/hooks/useSEO";
 const TERMS_PER_PAGE = 12;
 
 const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
-  "Dasar Web": { bg: "bg-emerald-50 dark:bg-emerald-900/20", text: "text-emerald-700 dark:text-emerald-400", border: "border-emerald-200 dark:border-emerald-800" },
-  Frontend: { bg: "bg-blue-50 dark:bg-blue-900/20", text: "text-blue-700 dark:text-blue-400", border: "border-blue-200 dark:border-blue-800" },
-  Backend: { bg: "bg-amber-50 dark:bg-amber-900/20", text: "text-amber-700 dark:text-amber-400", border: "border-amber-200 dark:border-amber-800" },
-  Database: { bg: "bg-violet-50 dark:bg-violet-900/20", text: "text-violet-700 dark:text-violet-400", border: "border-violet-200 dark:border-violet-800" },
-  DevOps: { bg: "bg-cyan-50 dark:bg-cyan-900/20", text: "text-cyan-700 dark:text-cyan-400", border: "border-cyan-200 dark:border-cyan-800" },
-  Security: { bg: "bg-red-50 dark:bg-red-900/20", text: "text-red-700 dark:text-red-400", border: "border-red-200 dark:border-red-800" },
-  Performance: { bg: "bg-orange-50 dark:bg-orange-900/20", text: "text-orange-700 dark:text-orange-400", border: "border-orange-200 dark:border-orange-800" },
-  Tools: { bg: "bg-gray-50 dark:bg-gray-800/40", text: "text-gray-700 dark:text-gray-400", border: "border-gray-200 dark:border-gray-700" },
-  "System Design": { bg: "bg-rose-50 dark:bg-rose-900/20", text: "text-rose-700 dark:text-rose-400", border: "border-rose-200 dark:border-rose-800" },
-  AI: { bg: "bg-purple-50 dark:bg-purple-900/20", text: "text-purple-700 dark:text-purple-400", border: "border-purple-200 dark:border-purple-800" },
-  General: { bg: "bg-slate-50 dark:bg-slate-800/40", text: "text-slate-700 dark:text-slate-400", border: "border-slate-200 dark:border-slate-700" },
+  "Dasar Web": { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
+  Frontend: { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
+  Backend: { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
+  Database: { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
+  DevOps: { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
+  Security: { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
+  Performance: { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
+  Tools: { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
+  "System Design": { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
+  AI: { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
+  General: { bg: "bg-app-surface-card", text: "text-app-heading", border: "border-app-default" },
 };
 
 export default function GlossaryPage() {
@@ -86,17 +86,17 @@ export default function GlossaryPage() {
     <div className="max-w-content mx-auto px-4 sm:px-6 pt-20 pb-16">
       {/* Header */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-aw-blue/10 text-aw-blue mb-5">
-          <BookOpen size={28} strokeWidth={2} />
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-app-accent-subtle text-app-accent mb-5">
+          <BookOpen size={28} strokeWidth={1.75} />
         </div>
-        <h1 className="font-display text-3xl sm:text-4xl text-aw-black dark:text-[#f0f0f0] mb-3 transition-colors">
+        <h1 className="font-display text-3xl sm:text-4xl text-app-heading mb-3 transition-colors">
           Glosarium Web Development
         </h1>
-        <p className="font-body text-base sm:text-lg text-aw-grey max-w-2xl mx-auto leading-relaxed dark:text-gray-400 transition-colors">
+        <p className="font-body text-base sm:text-lg text-app-muted max-w-2xl mx-auto leading-relaxed transition-colors">
           Kumpulan istilah teknis yang digunakan di seluruh pembelajaran.
           Pahami setiap konsep dari fondasi web hingga system design.
         </p>
-        <p className="font-body text-sm text-aw-border-mid mt-2 dark:text-gray-500 transition-colors">
+        <p className="font-body text-sm text-app-subtle mt-2 transition-colors">
           {glossaryTerms.length} istilah &middot; {glossaryCategories.length} kategori
         </p>
       </div>
@@ -105,21 +105,22 @@ export default function GlossaryPage() {
       <div className="relative max-w-xl mx-auto mb-6">
         <Search
           size={18}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-aw-border-mid"
+          strokeWidth={1.75}
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-app-muted"
         />
         <input
           type="text"
           placeholder="Cari istilah, definisi, atau topik..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-11 pr-10 py-3 rounded-xl border-2 border-aw-border-dim dark:border-white/20 bg-white dark:bg-[#1a1a1a] font-body text-[14px] text-aw-black dark:text-[#f0f0f0] placeholder:text-aw-border-mid focus:border-aw-blue focus:outline-none transition-colors"
+          className="w-full pl-11 pr-10 py-3 rounded-xl border border-app-default bg-app-surface font-body text-[14px] text-app-heading placeholder:text-app-muted focus:border-app-accent focus:outline-none transition-colors"
         />
         {searchQuery && (
           <button
             onClick={() => setSearchQuery("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-aw-border-mid hover:text-aw-black dark:hover:text-white transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-app-muted hover:text-app-heading transition-colors"
           >
-            <X size={16} />
+            <X size={16} strokeWidth={1.75} />
           </button>
         )}
       </div>
@@ -128,10 +129,10 @@ export default function GlossaryPage() {
       <div className="flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-2 mb-10 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
         <button
           onClick={() => setSelectedCategory("Semua")}
-          className={`font-body text-[12px] font-medium px-3 py-1.5 rounded-full border-2 transition-all shrink-0 ${
+          className={`font-body text-[12px] font-medium px-3 py-1.5 rounded-full border transition-all shrink-0 ${
             selectedCategory === "Semua"
-              ? "bg-aw-blue text-white border-aw-blue"
-              : "bg-white dark:bg-[#1a1a1a] text-aw-grey dark:text-gray-400 border-aw-border-dim dark:border-white/20 hover:border-aw-blue/50"
+              ? "bg-app-accent text-app-on-accent border-app-accent"
+              : "bg-app-surface text-app-muted border-app-default hover:border-app-accent/50"
           }`}
         >
           Semua ({glossaryTerms.length})
@@ -144,13 +145,13 @@ export default function GlossaryPage() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`font-body text-[12px] font-medium px-3 py-1.5 rounded-full border-2 transition-all flex items-center gap-1 shrink-0 ${
+              className={`font-body text-[12px] font-medium px-3 py-1.5 rounded-full border transition-all flex items-center gap-1 shrink-0 ${
                 isActive
                   ? `${colors.bg} ${colors.text} ${colors.border}`
-                  : "bg-white dark:bg-[#1a1a1a] text-aw-grey dark:text-gray-400 border-aw-border-dim dark:border-white/20 hover:border-aw-blue/50"
+                  : "bg-app-surface text-app-muted border-app-default hover:border-app-accent/50"
               }`}
             >
-              <Tag size={11} />
+              <Tag size={11} strokeWidth={1.75} />
               {cat} ({count})
             </button>
           );
@@ -159,14 +160,14 @@ export default function GlossaryPage() {
 
       {/* Results count */}
       {searchQuery && (
-        <p className="font-body text-sm text-aw-grey dark:text-gray-400 text-center mb-4">
+        <p className="font-body text-sm text-app-muted text-center mb-4">
           Menampilkan {filteredTerms.length} hasil untuk &ldquo;{searchQuery}&rdquo;
         </p>
       )}
 
       {/* Detail View */}
       {currentTerm && (
-        <div className="mb-8 bg-white dark:bg-[#1a1a1a] rounded-2xl border-2 border-aw-border-dim dark:border-white/10 overflow-hidden transition-colors">
+        <div className="mb-8 bg-app-surface rounded-2xl border border-app-default overflow-hidden transition-colors">
           <div className="p-6 sm:p-8">
             <div className="flex items-start justify-between gap-4 mb-4">
               <div>
@@ -179,25 +180,25 @@ export default function GlossaryPage() {
                     {currentTerm.category}
                   </span>
                 </div>
-                <h2 className="font-display text-2xl sm:text-3xl text-aw-black dark:text-[#f0f0f0] transition-colors">
+                <h2 className="font-display text-2xl sm:text-3xl text-app-heading transition-colors">
                   {currentTerm.term}
                 </h2>
               </div>
               <button
                 onClick={() => setExpandedTerm(null)}
-                className="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-aw-grey hover:bg-gray-100 dark:hover:bg-white/10 dark:text-gray-400 transition-colors"
+                className="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-app-muted hover:bg-app-surface-card-hover transition-colors"
               >
-                <X size={18} />
+                <X size={18} strokeWidth={1.75} />
               </button>
             </div>
 
-            <p className="font-body text-lg text-aw-black dark:text-[#f0f0f0] mb-6 leading-relaxed transition-colors">
+            <p className="font-body text-lg text-app-heading mb-6 leading-relaxed transition-colors">
               {currentTerm.shortDefinition}
             </p>
 
             <div className="prose dark:prose-invert max-w-none mb-6">
               <div
-                className="font-body text-[15px] text-aw-grey dark:text-gray-300 leading-[1.8] whitespace-pre-line transition-colors"
+                className="font-body text-[15px] text-app-muted leading-[1.8] whitespace-pre-line transition-colors"
                 dangerouslySetInnerHTML={{
                   __html: currentTerm.fullExplanation
                     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
@@ -208,11 +209,11 @@ export default function GlossaryPage() {
 
             {currentTerm.codeExample && (
               <div className="mb-6">
-                <p className="font-body text-[12px] font-semibold text-aw-grey uppercase tracking-wide mb-2 dark:text-gray-500">
+                <p className="font-body text-[12px] font-semibold text-app-subtle uppercase tracking-wide mb-2">
                   Contoh Kode
                 </p>
-                <pre className="bg-[#1e1e1e] rounded-xl p-4 overflow-x-auto">
-                  <code className="font-mono text-[13px] text-[#d4d4d4]">
+                <pre className="bg-app-code rounded-xl p-4 overflow-x-auto">
+                  <code className="font-mono text-[13px] text-app-code">
                     {currentTerm.codeExample}
                   </code>
                 </pre>
@@ -221,7 +222,7 @@ export default function GlossaryPage() {
 
             {currentTerm.relatedTerms.length > 0 && (
               <div>
-                <p className="font-body text-[12px] font-semibold text-aw-grey uppercase tracking-wide mb-2 dark:text-gray-500">
+                <p className="font-body text-[12px] font-semibold text-app-subtle uppercase tracking-wide mb-2">
                   Istilah Terkait
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -236,14 +237,14 @@ export default function GlossaryPage() {
                           setExpandedTerm(related.slug);
                           window.scrollTo({ top: 0, behavior: "smooth" });
                         }}
-                        className="font-body text-[13px] px-3 py-1 rounded-lg bg-aw-blue/10 text-aw-blue hover:bg-aw-blue/20 transition-colors"
+                        className="font-body text-[13px] px-3 py-1 rounded-lg bg-app-accent-subtle text-app-accent hover:bg-app-accent-subtle transition-colors"
                       >
-                        {rt} <ArrowRight size={12} className="inline ml-1" />
+                        {rt} <ArrowRight size={12} strokeWidth={1.75} className="inline ml-1" />
                       </button>
                     ) : (
                       <span
                         key={rt}
-                        className="font-body text-[13px] px-3 py-1 rounded-lg bg-gray-100 dark:bg-white/10 text-aw-grey dark:text-gray-400 transition-colors"
+                        className="font-body text-[13px] px-3 py-1 rounded-lg bg-app-inset text-app-muted transition-colors"
                       >
                         {rt}
                       </span>
@@ -269,10 +270,10 @@ export default function GlossaryPage() {
                     expandedTerm === term.slug ? null : term.slug
                   )
                 }
-                className={`text-left bg-white dark:bg-[#1a1a1a] rounded-xl border-2 p-5 transition-all hover:shadow-md dark:hover:shadow-white/5 group ${
+                className={`text-left bg-app-surface rounded-xl border p-5 transition-all hover:shadow-md group ${
                   expandedTerm === term.slug
-                    ? "border-aw-blue dark:border-aw-blue"
-                    : "border-aw-border-dim dark:border-white/10 hover:border-aw-blue/40"
+                    ? "border-app-accent"
+                    : "border-app-default hover:border-app-accent/40"
                 }`}
               >
                 <div className="flex items-center gap-2 mb-3">
@@ -282,10 +283,10 @@ export default function GlossaryPage() {
                     {term.category}
                   </span>
                 </div>
-                <h3 className="font-display text-lg text-aw-black dark:text-[#f0f0f0] mb-2 group-hover:text-aw-blue transition-colors">
+                <h3 className="font-display text-lg text-app-heading mb-2 group-hover:text-app-accent transition-colors">
                   {term.term}
                 </h3>
-                <p className="font-body text-[13px] text-aw-grey dark:text-gray-400 leading-relaxed line-clamp-3 transition-colors">
+                <p className="font-body text-[13px] text-app-muted leading-relaxed line-clamp-3 transition-colors">
                   {term.shortDefinition}
                 </p>
               </button>
@@ -294,11 +295,11 @@ export default function GlossaryPage() {
         </div>
       ) : (
         <div className="text-center py-16">
-          <Search size={48} className="mx-auto text-aw-border-mid mb-4" />
-          <h3 className="font-display text-xl text-aw-black dark:text-[#f0f0f0] mb-2 transition-colors">
+          <Search size={48} strokeWidth={1.75} className="mx-auto text-app-muted mb-4" />
+          <h3 className="font-display text-xl text-app-heading mb-2 transition-colors">
             Tidak ditemukan
           </h3>
-          <p className="font-body text-aw-grey dark:text-gray-400 transition-colors">
+          <p className="font-body text-app-muted transition-colors">
             Coba kata kunci lain atau ubah filter kategori.
           </p>
         </div>
@@ -310,9 +311,9 @@ export default function GlossaryPage() {
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="flex items-center gap-1 font-body text-[13px] font-medium px-3 py-2 rounded-lg border-2 border-aw-border-dim dark:border-white/20 bg-white dark:bg-[#1a1a1a] text-aw-black dark:text-[#f0f0f0] disabled:opacity-40 disabled:cursor-not-allowed hover:border-aw-blue transition-colors"
+            className="flex items-center gap-1 font-body text-[13px] font-medium px-3 py-2 rounded-lg border border-app-default bg-app-surface text-app-heading disabled:opacity-40 disabled:cursor-not-allowed hover:border-app-accent transition-colors"
           >
-            <ChevronLeft size={16} />
+            <ChevronLeft size={16} strokeWidth={1.75} />
             Prev
           </button>
 
@@ -323,8 +324,8 @@ export default function GlossaryPage() {
                 onClick={() => handlePageChange(page)}
                 className={`font-body text-[13px] font-medium w-9 h-9 rounded-lg border-2 transition-all ${
                   currentPage === page
-                    ? "bg-aw-blue text-white border-aw-blue"
-                    : "bg-white dark:bg-[#1a1a1a] text-aw-black dark:text-[#f0f0f0] border-aw-border-dim dark:border-white/20 hover:border-aw-blue/50"
+                    ? "bg-app-accent text-app-on-accent border-app-accent"
+                    : "bg-app-surface text-app-heading border-app-default hover:border-app-accent/50"
                 }`}
               >
                 {page}
@@ -335,36 +336,36 @@ export default function GlossaryPage() {
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="flex items-center gap-1 font-body text-[13px] font-medium px-3 py-2 rounded-lg border-2 border-aw-border-dim dark:border-white/20 bg-white dark:bg-[#1a1a1a] text-aw-black dark:text-[#f0f0f0] disabled:opacity-40 disabled:cursor-not-allowed hover:border-aw-blue transition-colors"
+            className="flex items-center gap-1 font-body text-[13px] font-medium px-3 py-2 rounded-lg border border-app-default bg-app-surface text-app-heading disabled:opacity-40 disabled:cursor-not-allowed hover:border-app-accent transition-colors"
           >
             Next
-            <ChevronRight size={16} />
+            <ChevronRight size={16} strokeWidth={1.75} />
           </button>
         </div>
       )}
 
       {/* Page info */}
       {filteredTerms.length > 0 && (
-        <p className="text-center font-body text-[12px] text-aw-border-mid dark:text-gray-500 mt-4 transition-colors">
+        <p className="text-center font-body text-[12px] text-app-subtle mt-4 transition-colors">
           Halaman {currentPage} dari {totalPages} &middot; Menampilkan{" "}
           {paginatedTerms.length} dari {filteredTerms.length} istilah
         </p>
       )}
 
       {/* Bottom CTA */}
-      <div className="mt-16 text-center bg-aw-yellow/20 dark:bg-aw-yellow/10 rounded-2xl p-8 border-2 border-aw-yellow/40 dark:border-aw-yellow/20">
-        <h3 className="font-display text-xl text-aw-black dark:text-[#f0f0f0] mb-2 transition-colors">
+      <div className="mt-16 text-center bg-app-accent-subtle rounded-2xl p-8 border border-app-accent/40">
+        <h3 className="font-display text-xl text-app-heading mb-2 transition-colors">
           Mau belajar lebih dalam?
         </h3>
-        <p className="font-body text-sm text-aw-grey dark:text-gray-400 mb-5 transition-colors">
+        <p className="font-body text-sm text-app-muted mb-5 transition-colors">
           Setiap istilah di atas dipelajari secara detail di modul-modul
           pembelajaran kami.
         </p>
         <Link
           to="/modul"
-          className="inline-flex items-center gap-2 font-body text-[14px] font-semibold bg-aw-blue text-white px-6 py-3 rounded-xl hover:bg-aw-blue/90 transition-colors"
+          className="inline-flex items-center gap-2 font-body text-[14px] font-semibold bg-app-accent text-app-on-accent px-6 py-3 rounded-xl hover:bg-app-accent/90 transition-colors"
         >
-          Jelajahi Modul <ArrowRight size={16} />
+          Jelajahi Modul <ArrowRight size={16} strokeWidth={1.75} />
         </Link>
       </div>
     </div>

@@ -502,7 +502,7 @@ const modul3: Chapter[] = [
 
     analogy: { diagram: "Sinkron = 1 Loket:\n[A]→[B]→[C]→[D] (Nunggu bergiliran)\n\nAsinkron = Banyak Loket:\n[Loket1] [Loket2] [Loket3]\n   ↑        ↑        ↑\n   A        B        C\n(Parallel!)", caption: "Sinkron = satu per satu, Asinkron = banyak task berjalan paralel" },
 
-    explanation: "Kalau HTML adalah kerangka rumah — fondasi, dinding, dan struktur — maka **CSS (Cascading Style Sheets)** adalah dekorasi interior: cat dinding,\n\nWarna pintu, jenis lampu, furniture, hiasan, dan tata letak ruangan.\n\nTanpa CSS, setiap halaman web akan terlihat sama: teks hitam di latar belakang putih, tanpa warna,\n\nTanpa layout yang menarik, tanpa animasi — seperti rumah yang belum dihuni dan didekorasi.\n\nBisa dipakai?\n\nBisa.\n\nTapi nyaman dan indah? Jauh dari itu.\\n\\n**Apa itu CSS?** CSS adalah bahasa stylesheet yang mengontrol tampilan dan layout elemen HTML. CSS menjawab pertanyaan-pertanyaan seperti: Berapa ukuran font heading ini? Warna latar belakang halaman apa?\n\nSeberapa lebar sidebar? Gambar ini di sebelah kiri atau kanan? Tombol ini berwarna apa saat di-hover? Semua itu adalah tugas CSS.\n\nDengan CSS, kamu bisa mengubah website yang polos menjadi halaman yang indah, profesional,\n\nDan memukau.\\n\\n**Sejarah Singkat CSS:** CSS pertama kali diusulkan oleh HÃ¥kon Wium Lie pada tahun 1994 di CERN — tempat yang sama HTML diciptakan!\n\nSebelum CSS, styling ditaruh langsung di HTML (attribute seperti `<font color=\\\"red\\\">`) yang membuat kode berantakan dan sulit dipelihara.\n\nCSS memisahkan konten (HTML) dari presentasi (CSS) — prinsip yang sangat penting dalam software engineering.\n\nVersi terbaru adalah CSS3 yang membawa fitur seperti flexbox, grid, animasi, gradient, shadow, dan responsive design.\\n\\n**Tiga Cara Menyambungkan CSS ke HTML:**\\n\\n**1.\n\nInline CSS** — Style langsung di tag HTML menggunakan attribute `style`.\\nContoh: `<p style=\\\"color: red; font-size: 16px;\\\">`\\nKeuntungan: cepat untuk testing. Kekurangan: tidak reusable, sulit dipelihara, campur aduk konten dan style. Hindari untuk production!\\n\\n**2. Internal CSS** — Style ditulis di dalam tag `<style>` di head dokumen.\\nCocok untuk halaman tunggal atau prototype.\n\nTapi kalau punya banyak halaman, style harus di-copy ke setiap halaman — tidak efisien!\\n\\n**3.\n\nExternal CSS (REKOMENDASI)** — Style ditulis di file terpisah (`.css`) dan disambungkan dengan `<link>`.\\nKeuntungan: satu file CSS bisa dipakai oleh banyak halaman HTML,\n\nBrowser cache file CSS sehingga loading halaman berikutnya lebih cepat, dan pemisahan concerns yang bersih antara konten dan style.\n\nIni adalah cara yang digunakan 99% website profesional.\\n\\n**Sintaks CSS:**\\nCSS terdiri dari aturan-aturan (rules).\n\nSetiap aturan punya dua bagian:\\n```\\nselector {\\n  property: value;\\n}\\n```\\n- **Selector**: Menentukan ELEMEN HTML mana yang akan di-styling.\n\nContoh: `h1`, `.class`, `#id`\\n- **Property**: Aspek apa yang ingin diubah.\n\nContoh: `color`, `font-size`, `background`\\n- **Value**: Nilai baru untuk property tersebut.\n\nContoh: `red`, `16px`, `#ffffff`\\n\\nContoh lengkap:\\n```css\\nh1 {\\n  color: navy;\\n  font-size: 32px;\\n  text-align: center;\\n}\\n```\\n\\nArtinya: \\\"Semua elemen h1, ubah warna teksnya menjadi navy, ukuran font 32 piksel, dan rata tengah.\\\"\\n\\n**Cascading** dalam CSS artinya style bisa \\\"menurun\\\" dan \\\"ditumpuk.\\\" Beberapa aturan bisa berlaku untuk elemen yang sama,\n\nDan CSS punya mekanisme untuk menentukan aturan mana yang \\\"menang\\\" — ini disebut **specificity** dan akan kita pelajari di chapter selanjutnya.\\n\\n**Kenapa memisahkan CSS dari HTML penting?** Karena ini adalah prinsip **separation of concerns** — setiap teknologi punya tugasnya sendiri: HTML untuk struktur dan makna, CSS untuk tampilan, JavaScript untuk perilaku.\n\nPemisahan ini membuat kode lebih mudah dipelihara, lebih mudah dikerjakan tim (satu orang kerja HTML, satu orang kerja CSS),\n\nDan lebih fleksibel (bisa mengganti tema tanpa mengubah HTML).\\n\\nJadi, HTML adalah TULANG, CSS adalah KULIT dan PAKEAIAN, dan JavaScript adalah OTOT yang membuatnya bergerak.\n\nKetiganya bekerja sama untuk menciptakan pengalaman web yang lengkap.",
+    explanation: "Kalau HTML adalah kerangka rumah — fondasi, dinding, dan struktur — maka **CSS (Cascading Style Sheets)** adalah dekorasi interior: cat dinding,\n\nWarna pintu, jenis lampu, furniture, hiasan, dan tata letak ruangan.\n\nTanpa CSS, setiap halaman web akan terlihat sama: teks hitam di latar belakang putih, tanpa warna,\n\nTanpa layout yang menarik, tanpa animasi — seperti rumah yang belum dihuni dan didekorasi.\n\nBisa dipakai?\n\nBisa.\n\nTapi nyaman dan indah? Jauh dari itu.\\n\\n**Apa itu CSS?** CSS adalah bahasa stylesheet yang mengontrol tampilan dan layout elemen HTML. CSS menjawab pertanyaan-pertanyaan seperti: Berapa ukuran font heading ini? Warna latar belakang halaman apa?\n\nSeberapa lebar sidebar? Gambar ini di sebelah kiri atau kanan? Tombol ini berwarna apa saat di-hover? Semua itu adalah tugas CSS.\n\nDengan CSS, kamu bisa mengubah website yang polos menjadi halaman yang indah, profesional,\n\nDan memukau.\\n\\n**Sejarah Singkat CSS:** CSS pertama kali diusulkan oleh Håkon Wium Lie pada tahun 1994 di CERN — tempat yang sama HTML diciptakan!\n\nSebelum CSS, styling ditaruh langsung di HTML (attribute seperti `<font color=\\\"red\\\">`) yang membuat kode berantakan dan sulit dipelihara.\n\nCSS memisahkan konten (HTML) dari presentasi (CSS) — prinsip yang sangat penting dalam software engineering.\n\nVersi terbaru adalah CSS3 yang membawa fitur seperti flexbox, grid, animasi, gradient, shadow, dan responsive design.\\n\\n**Tiga Cara Menyambungkan CSS ke HTML:**\\n\\n**1.\n\nInline CSS** — Style langsung di tag HTML menggunakan attribute `style`.\\nContoh: `<p style=\\\"color: red; font-size: 16px;\\\">`\\nKeuntungan: cepat untuk testing. Kekurangan: tidak reusable, sulit dipelihara, campur aduk konten dan style. Hindari untuk production!\\n\\n**2. Internal CSS** — Style ditulis di dalam tag `<style>` di head dokumen.\\nCocok untuk halaman tunggal atau prototype.\n\nTapi kalau punya banyak halaman, style harus di-copy ke setiap halaman — tidak efisien!\\n\\n**3.\n\nExternal CSS (REKOMENDASI)** — Style ditulis di file terpisah (`.css`) dan disambungkan dengan `<link>`.\\nKeuntungan: satu file CSS bisa dipakai oleh banyak halaman HTML,\n\nBrowser cache file CSS sehingga loading halaman berikutnya lebih cepat, dan pemisahan concerns yang bersih antara konten dan style.\n\nIni adalah cara yang digunakan 99% website profesional.\\n\\n**Sintaks CSS:**\\nCSS terdiri dari aturan-aturan (rules).\n\nSetiap aturan punya dua bagian:\\n```\\nselector {\\n  property: value;\\n}\\n```\\n- **Selector**: Menentukan ELEMEN HTML mana yang akan di-styling.\n\nContoh: `h1`, `.class`, `#id`\\n- **Property**: Aspek apa yang ingin diubah.\n\nContoh: `color`, `font-size`, `background`\\n- **Value**: Nilai baru untuk property tersebut.\n\nContoh: `red`, `16px`, `#ffffff`\\n\\nContoh lengkap:\\n```css\\nh1 {\\n  color: navy;\\n  font-size: 32px;\\n  text-align: center;\\n}\\n```\\n\\nArtinya: \\\"Semua elemen h1, ubah warna teksnya menjadi navy, ukuran font 32 piksel, dan rata tengah.\\\"\\n\\n**Cascading** dalam CSS artinya style bisa \\\"menurun\\\" dan \\\"ditumpuk.\\\" Beberapa aturan bisa berlaku untuk elemen yang sama,\n\nDan CSS punya mekanisme untuk menentukan aturan mana yang \\\"menang\\\" — ini disebut **specificity** dan akan kita pelajari di chapter selanjutnya.\\n\\n**Kenapa memisahkan CSS dari HTML penting?** Karena ini adalah prinsip **separation of concerns** — setiap teknologi punya tugasnya sendiri: HTML untuk struktur dan makna, CSS untuk tampilan, JavaScript untuk perilaku.\n\nPemisahan ini membuat kode lebih mudah dipelihara, lebih mudah dikerjakan tim (satu orang kerja HTML, satu orang kerja CSS),\n\nDan lebih fleksibel (bisa mengganti tema tanpa mengubah HTML).\\n\\nJadi, HTML adalah TULANG, CSS adalah KULIT dan PAKEAIAN, dan JavaScript adalah OTOT yang membuatnya bergerak.\n\nKetiganya bekerja sama untuk menciptakan pengalaman web yang lengkap.",
 
     codeExample: { language: "javascript", code: "// SINKRON: Berurutan, blocking\nconsole.log('1. Mulai');\nconsole.log('2. Proses...');\nfor (let i = 0; i < 1000000000; i++) {} // Lambat!\nconsole.log('3. Selesai');\n\n// ASINKRON: Tidak blocking\nconsole.log('1. Mulai');\nsetTimeout(() => {\n  console.log('3. Ini jalan nanti');\n}, 2000);\nconsole.log('2. Langsung lanjut!');\n\n// ASINKRON: Fetch API\nconsole.log('1. Request data...');\nfetch('https://api.example.com/data')\n  .then(res => res.json())\n  .then(data => console.log('3. Data:', data));\nconsole.log('2. Lanjut tanpa nunggu!');" },
 
@@ -5278,6 +5278,165 @@ const modul27: Chapter[] = [
 
 
 
+const modul9Clean: Chapter[] = [
+  {
+    id: "9.1",
+    moduleId: 9,
+    chapterNum: "9.1",
+    title: "React: Component-Based UI",
+    subtitle: "Konsep component, props, state, dan hooks",
+    level: "Lanjut",
+    objectives: [
+      "Memahami konsep React component",
+      "Bisa membuat component dengan props dan state",
+    ],
+    analogy: {
+      diagram: "React = LEGO:\n\n[App] = [Header] + [Sidebar] + [Main] + [Footer]\n         (komponen reusable)",
+      caption: "React seperti LEGO: UI dibangun dari komponen reusable.",
+    },
+    explanation:
+      "**React** adalah library JavaScript untuk membangun user interface. Konsep utamanya adalah **component**: potongan UI yang reusable dan independen.\n\n**Konsep Dasar React:**\n1. **Component**: fungsi yang mengembalikan JSX.\n2. **Props**: data dari parent ke child, sifatnya read-only.\n3. **State**: data yang bisa berubah dan memicu render ulang.\n4. **Hooks**: fungsi seperti `useState` dan `useEffect` untuk memakai state dan lifecycle di functional component.\n\n**Kenapa React?** React membuat UI lebih deklaratif. Kamu mendeskripsikan tampilan untuk sebuah state, lalu React mengurus update DOM yang diperlukan.",
+    codeExample: {
+      language: "tsx",
+      code: "import { useState } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <button onClick={() => setCount(count + 1)}>\n      Klik: {count}\n    </button>\n  );\n}",
+    },
+    explainAlong:
+      "`useState` menyimpan nilai `count`. Saat tombol diklik, state berubah dan React merender ulang komponen.",
+    aiPrompt: "Jelaskan bedanya props dan state di React dengan analogi sehari-hari.",
+    reflection: "Buat component TodoList sederhana. Gunakan props untuk judul dan state untuk daftar todo.",
+  },
+  {
+    id: "9.2",
+    moduleId: 9,
+    chapterNum: "9.2",
+    title: "Next.js: React dengan Superpower",
+    subtitle: "SSR, SSG, API Routes, dan file-based routing",
+    level: "Lanjut",
+    objectives: [
+      "Memahami keunggulan Next.js dibanding React biasa",
+      "Bisa membedakan SSR, SSG, dan client-side rendering",
+    ],
+    analogy: {
+      diagram: "React = Mesin UI\nNext.js = Mobil lengkap\n\nRouting + SSR + SSG + API Routes + Optimasi gambar",
+      caption: "Next.js menambahkan fitur production-ready di atas React.",
+    },
+    explanation:
+      "**Next.js** adalah framework React yang menyediakan routing, rendering di server, static generation, API routes, dan optimasi produksi.\n\n**Keunggulan Next.js:**\n1. **File-based routing**: file menjadi route.\n2. **SSR**: halaman dirender di server saat request datang.\n3. **SSG**: halaman dibuat saat build dan disajikan cepat.\n4. **API routes**: endpoint backend bisa hidup dalam satu project.\n5. **Image optimization**: gambar bisa dioptimalkan otomatis.",
+    codeExample: {
+      language: "tsx",
+      code: "export async function getServerSideProps() {\n  const res = await fetch('https://api.example.com/data');\n  const data = await res.json();\n\n  return { props: { data } };\n}\n\nexport default function Page({ data }) {\n  return <main>{data.title}</main>;\n}",
+    },
+    explainAlong:
+      "`getServerSideProps` berjalan di server setiap request, lalu hasilnya dikirim sebagai props ke halaman.",
+    aiPrompt: "Bandingkan SSR dan SSG: kapan sebaiknya memakai masing-masing?",
+    reflection: "Cari satu halaman web yang butuh SEO kuat. Apakah cocok memakai SSR, SSG, atau CSR?",
+  },
+  {
+    id: "9.3",
+    moduleId: 9,
+    chapterNum: "9.3",
+    title: "TypeScript: Tipe Data untuk JavaScript",
+    subtitle: "Type safety, interface, generic, dan integrasi dengan React",
+    level: "Lanjut",
+    objectives: [
+      "Memahami manfaat TypeScript",
+      "Bisa memakai type, interface, dan generic dasar",
+    ],
+    analogy: {
+      diagram: "JavaScript = Kotak bebas\nTypeScript = Rak berlabel\n\nString masuk rak string, number masuk rak number.",
+      caption: "TypeScript memberi struktur pada JavaScript yang dinamis.",
+    },
+    explanation:
+      "**TypeScript** adalah superset JavaScript yang menambahkan static type checking. Banyak bug bisa ditemukan sebelum aplikasi dijalankan.\n\n**Manfaat utama:**\n1. Error tipe tertangkap saat development.\n2. Autocomplete dan refactoring di editor lebih kuat.\n3. Bentuk data menjadi lebih jelas.\n4. Perubahan kode lebih aman karena compiler ikut memeriksa.",
+    codeExample: {
+      language: "tsx",
+      code: "interface User {\n  id: string;\n  name: string;\n  email: string;\n}\n\nfunction UserCard({ user }: { user: User }) {\n  return <h2>{user.name}</h2>;\n}",
+    },
+    explainAlong:
+      "`interface User` menjelaskan bentuk object user. Komponen `UserCard` hanya menerima props yang sesuai tipe itu.",
+    aiPrompt: "Jelaskan perbedaan `type` dan `interface` di TypeScript.",
+    reflection: "Ambil satu object di proyekmu dan tulis interface TypeScript untuk object itu.",
+  },
+  {
+    id: "9.4",
+    moduleId: 9,
+    chapterNum: "9.4",
+    title: "State Management Modern: Zustand & Jotai",
+    subtitle: "Alternatif lightweight untuk Redux",
+    level: "Lanjut",
+    objectives: [
+      "Memahami kapan butuh state management global",
+      "Bisa menjelaskan perbedaan Zustand dan Jotai",
+    ],
+    analogy: {
+      diagram: "Local state = Catatan di meja sendiri\nGlobal state = Papan informasi bersama\n\nSemua komponen bisa membaca papan yang sama.",
+      caption: "State global dipakai saat banyak bagian UI membutuhkan data yang sama.",
+    },
+    explanation:
+      "Tidak semua state perlu library. Untuk state lokal, `useState` sering cukup. Tetapi saat banyak komponen perlu membaca atau mengubah data yang sama, state management global membantu.\n\n**Zustand** cocok untuk store sederhana berbasis hook dengan boilerplate rendah.\n\n**Jotai** cocok saat state ingin dipecah menjadi atom-atom kecil yang bisa dikombinasikan.",
+    codeExample: {
+      language: "tsx",
+      code: "import { create } from 'zustand';\n\nconst useStore = create((set) => ({\n  count: 0,\n  inc: () => set((state) => ({ count: state.count + 1 })),\n}));\n\nfunction Counter() {\n  const count = useStore((state) => state.count);\n  const inc = useStore((state) => state.inc);\n\n  return <button onClick={inc}>{count}</button>;\n}",
+    },
+    explainAlong:
+      "Store Zustand berisi data dan aksi. Komponen mengambil bagian state yang dibutuhkan melalui selector.",
+    aiPrompt: "Kapan Context API cukup, dan kapan lebih baik memakai Zustand?",
+    reflection: "Identifikasi satu state yang sering dipassing antar komponen. Apakah cocok dipindah ke store global?",
+  },
+  {
+    id: "9.5",
+    moduleId: 9,
+    chapterNum: "9.5",
+    title: "Styling Modern: Tailwind dan CSS-in-JS",
+    subtitle: "Utility-first CSS, styled-components, dan emotion",
+    level: "Lanjut",
+    objectives: [
+      "Memahami pendekatan utility-first CSS",
+      "Bisa membedakan Tailwind dan CSS-in-JS",
+    ],
+    analogy: {
+      diagram: "CSS tradisional = Menjahit baju dari kain\nTailwind = Memilih potongan siap pakai\nCSS-in-JS = Pola dan baju berada di file komponen",
+      caption: "Setiap pendekatan styling punya trade-off berbeda.",
+    },
+    explanation:
+      "**Tailwind CSS** memakai utility class untuk membangun UI cepat dan konsisten. Kamu tidak perlu membuat nama class baru untuk setiap elemen.\n\n**CSS-in-JS** menulis styling di dekat komponen JavaScript. Pendekatan ini berguna saat style sangat bergantung pada state atau props.\n\nPilih Tailwind untuk konsistensi dan kecepatan, CSS-in-JS saat butuh style dinamis yang sangat terikat logic komponen.",
+    codeExample: {
+      language: "tsx",
+      code: "function Card({ title, children }) {\n  return (\n    <article className=\"rounded-lg border p-4 shadow-sm\">\n      <h2 className=\"text-lg font-semibold\">{title}</h2>\n      <div className=\"mt-2 text-sm text-gray-600\">{children}</div>\n    </article>\n  );\n}",
+    },
+    explainAlong:
+      "Class Tailwind langsung menyatakan radius, border, spacing, shadow, dan typography pada elemen.",
+    aiPrompt: "Jelaskan kelebihan dan kekurangan Tailwind dibanding CSS module.",
+    reflection: "Bangun satu card dengan Tailwind. Catat utility class apa saja yang paling sering dipakai.",
+  },
+  {
+    id: "9.6",
+    moduleId: 9,
+    chapterNum: "9.6",
+    title: "Ekosistem Front-End: Bundler, Linter, Formatter",
+    subtitle: "Vite, ESLint, Prettier, dan tools development",
+    level: "Lanjut",
+    objectives: [
+      "Memahami fungsi bundler, linter, dan formatter",
+      "Bisa menjelaskan peran Vite dalam project modern",
+    ],
+    analogy: {
+      diagram: "Vite = Mesin dapur cepat\nESLint = Pemeriksa kualitas\nPrettier = Perapih tampilan resep\nTypeScript = Buku aturan bahan",
+      caption: "Tools modern membuat development lebih cepat dan konsisten.",
+    },
+    explanation:
+      "Ekosistem front-end modern memakai beberapa tool pendukung.\n\n**Bundler** seperti Vite menggabungkan dan mengoptimalkan file agar siap dijalankan browser.\n\n**Linter** seperti ESLint mencari pola kode yang berisiko.\n\n**Formatter** seperti Prettier merapikan format kode otomatis agar tim tidak berdebat soal spasi, quote, atau indentasi.",
+    codeExample: {
+      language: "bash",
+      code: "npm create vite@latest my-app -- --template react-ts\ncd my-app\nnpm install\nnpm run dev",
+    },
+    explainAlong:
+      "Perintah ini membuat project Vite React TypeScript, memasang dependency, lalu menjalankan dev server.",
+    aiPrompt: "Jelaskan bedanya bundler, transpiler, linter, dan formatter.",
+    reflection: "Setup project kecil dengan Vite. Perhatikan file apa saja yang dibuat otomatis.",
+  },
+];
+
 export const allChapters: Chapter[] = [
 
   ...modul1,
@@ -5296,7 +5455,7 @@ export const allChapters: Chapter[] = [
 
   ...modul8,
 
-  ...modul9,
+  ...modul9Clean,
 
   ...modul10,
 
