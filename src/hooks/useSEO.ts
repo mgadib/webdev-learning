@@ -7,6 +7,7 @@ interface SEOProps {
   ogImage?: string;
   noindex?: boolean;
   canonicalPath?: string;
+  keywords?: string[];
 }
 
 const DEFAULT_DESCRIPTION =
@@ -22,6 +23,7 @@ export function useSEO({
   ogImage = DEFAULT_OG_IMAGE,
   noindex = false,
   canonicalPath,
+  keywords,
 }: SEOProps) {
   const fullTitle = title.includes("Webdev Learning")
     ? title
@@ -54,16 +56,16 @@ export function useSEO({
     linkCanonical.setAttribute("href", canonicalUrl);
 
     // OG Title
-    let ogTitle = document.querySelector('meta[property="og:title"]');
+    const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute("content", fullTitle);
 
     // OG Description
-    let ogDesc = document.querySelector('meta[property="og:description"]');
+    const ogDesc = document.querySelector('meta[property="og:description"]');
     if (ogDesc)
       ogDesc.setAttribute("content", description || DEFAULT_DESCRIPTION);
 
     // OG Type
-    let ogTypeEl = document.querySelector('meta[property="og:type"]');
+    const ogTypeEl = document.querySelector('meta[property="og:type"]');
     if (ogTypeEl) ogTypeEl.setAttribute("content", ogType);
 
     // OG URL
@@ -76,21 +78,41 @@ export function useSEO({
     ogUrl.setAttribute("content", canonicalUrl);
 
     // OG Image
-    let ogImageEl = document.querySelector('meta[property="og:image"]');
+    const ogImageEl = document.querySelector('meta[property="og:image"]');
     if (ogImageEl) ogImageEl.setAttribute("content", ogImage);
 
     // Twitter Title
-    let twTitle = document.querySelector('meta[name="twitter:title"]');
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
     if (twTitle) twTitle.setAttribute("content", fullTitle);
 
     // Twitter Description
-    let twDesc = document.querySelector('meta[name="twitter:description"]');
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
     if (twDesc)
       twDesc.setAttribute("content", description || DEFAULT_DESCRIPTION);
 
     // Twitter Image
-    let twImage = document.querySelector('meta[name="twitter:image"]');
+    const twImage = document.querySelector('meta[name="twitter:image"]');
     if (twImage) twImage.setAttribute("content", ogImage);
+
+    // Meta keywords
+    if (keywords && keywords.length > 0) {
+      let metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (!metaKeywords) {
+        metaKeywords = document.createElement("meta");
+        metaKeywords.setAttribute("name", "keywords");
+        document.head.appendChild(metaKeywords);
+      }
+      metaKeywords.setAttribute("content", keywords.join(", "));
+    }
+
+    // Twitter Site
+    let twSite = document.querySelector('meta[name="twitter:site"]');
+    if (!twSite) {
+      twSite = document.createElement("meta");
+      twSite.setAttribute("name", "twitter:site");
+      document.head.appendChild(twSite);
+    }
+    twSite.setAttribute("content", "@webdevlearning");
 
     // Robots meta (noindex if needed)
     let robotsMeta = document.querySelector('meta[name="robots"]');
@@ -108,5 +130,5 @@ export function useSEO({
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
 
     // Cleanup not needed - we want meta to persist
-  }, [fullTitle, description, ogType, ogImage, noindex, canonicalUrl]);
+  }, [fullTitle, description, ogType, ogImage, noindex, canonicalUrl, keywords]);
 }

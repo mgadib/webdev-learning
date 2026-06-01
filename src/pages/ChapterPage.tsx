@@ -16,7 +16,12 @@ import { getModuleChapters, getChapter } from "@/data/chapters";
 import { useProgress } from "@/hooks/useProgress";
 import { useSEO } from "@/hooks/useSEO";
 import { useEffect } from "react";
-import { SchemaOrgArticle, SchemaOrgBreadcrumb } from "@/components/SchemaOrg";
+import {
+  SchemaOrgArticle,
+  SchemaOrgBreadcrumb,
+  SchemaOrgFAQ,
+  SchemaOrgHowTo,
+} from "@/components/SchemaOrg";
 import TrailPaintCanvas from "@/components/TrailPaintCanvas";
 import MarkdownContent from "@/components/MarkdownContent";
 
@@ -45,22 +50,25 @@ export default function ChapterPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [chapterId]);
 
+  useSEO({
+    title: chapter ? `${chapter.title} (Ch. ${chapter.chapterNum}) — ${mod?.title || ""}` : "Chapter",
+    description: chapter?.subtitle || "Belajar Web Development",
+    ogType: "article",
+    canonicalPath: chapter ? `/modul/${modId}/chapter/${chapterId}` : "/",
+    keywords: mod && chapter ? [mod.topic, chapter.topic, mod.level, "Web Development", "Tutorial Indonesia"] : undefined,
+  });
+
   if (!mod || !chapter) {
     return <Navigate to="/" replace />;
   }
-
-  useSEO({
-    title: `${chapter.title} (Ch. ${chapter.chapterNum}) — ${mod.title}`,
-    description: chapter.subtitle,
-    ogType: "article",
-    canonicalPath: `/modul/${modId}/chapter/${chapterId}`,
-  });
 
   const chapterIds = allChapters.map((c) => c.id);
   const chapterTitles: Record<string, string> = {};
   allChapters.forEach((c) => {
     chapterTitles[c.id] = c.title;
   });
+
+  const keywords = [mod.topic, chapter.topic, mod.level, "Web Development", "Tutorial Indonesia"];
 
   return (
     <div className="relative">
@@ -69,12 +77,16 @@ export default function ChapterPage() {
         description={chapter.subtitle}
         moduleTitle={mod.title}
         chapterNum={chapter.chapterNum}
+        moduleId={modId}
+        chapterId={chapter.id}
+        topic={chapter.topic}
+        keywords={keywords}
       />
       <SchemaOrgBreadcrumb
         items={[
           { name: "Beranda", url: "/" },
           { name: mod.title, url: `/modul/${modId}` },
-          { name: chapter.title },
+          { name: chapter.title, url: `/modul/${modId}/chapter/${chapterId}` },
         ]}
       />
       <TrailPaintCanvas variant="chapter-bg" />
@@ -203,6 +215,35 @@ export default function ChapterPage() {
             chapterId={chapter.id}
           />
         </ScrollReveal>
+
+        {/* ── GEO: FAQ Schema for AI Engines ── */}
+        <SchemaOrgFAQ
+          question={chapter.reflection}
+          answer={`Pelajari ${chapter.title} dalam modul ${mod.title} untuk memahami konsep ini secara mendalam melalui analogi, kode praktis, dan refleksi mandiri.`}
+        />
+
+        {/* ── GEO: HowTo Schema for Code Examples ── */}
+        {chapter.codeExample && (
+          <SchemaOrgHowTo
+            name={`Cara Implementasi ${chapter.title}`}
+            description={chapter.subtitle}
+            steps={[
+              {
+                name: "Pahami Konsep",
+                text: chapter.analogy.caption || "Pahami konsep melalui analogi yang diberikan",
+              },
+              {
+                name: "Lihat Contoh Kode",
+                text: chapter.explainAlong || "Pelajari contoh kode dan penjelasannya",
+                code: chapter.codeExample.code,
+              },
+              {
+                name: "Praktik Mandiri",
+                text: chapter.aiPrompt || "Coba implementasikan sendiri dengan bantuan AI",
+              },
+            ]}
+          />
+        )}
 
         {/* ── Section 8: Navigasi ── */}
         <ChapterNav

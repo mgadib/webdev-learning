@@ -1,123 +1,46 @@
-# =============================================================================
-# .gitignore — Webdev Learning
-# Stack: React + TypeScript + Vite + Tailwind CSS + shadcn/ui
-# =============================================================================
-
-# ── Dependencies ────────────────────────────────────────────────────────────
+# Dependencies
 node_modules/
-.pnp
 .pnp.js
-.pnpm-debug.log*
 
-# ── Build output ────────────────────────────────────────────────────────────
+# Build output
 dist/
 dist-ssr/
-build/
 *.tgz
-*.tar.gz
 
-# ── Environment variables ───────────────────────────────────────────────────
-# Never commit environment variables or secrets
+# Environment variables
 .env
-.env.local
 .env.*.local
 .env.development
 .env.production
-.env.test
 
-# ── Security-sensitive files ────────────────────────────────────────────────
-# SSL certificates, private keys, and credentials
-*.pem
-*.key
-*.crt
-*.csr
-*.p12
-*.pfx
-
-# ── Logs ────────────────────────────────────────────────────────────────────
-logs/
+# Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-lerna-debug.log*
 
-# ── TypeScript ──────────────────────────────────────────────────────────────
-*.tsbuildinfo
-*.tsbuildinfo.*
-
-# ── Editor & IDEs ───────────────────────────────────────────────────────────
-# VS Code
-.vscode/*
-!.vscode/extensions.json
-!.vscode/settings.json.example
-.vscode-test/
-
-# JetBrains
-.idea/
-*.iml
-*.ipr
-*.iws
-
-# Vim
-*.sw?
-*.swo
-*.swn
-
-# Sublime Text
-*.sublime-project
+# Editor
+.vscode/
+*.sw[pon]
 *.sublime-workspace
-
-# VS Code Local History extension
 .history/
 
-# ── OS generated files ──────────────────────────────────────────────────────
-# macOS
+# OS files
 .DS_Store
-.DS_Store?
-.AppleDouble
-.LSOverride
-
-# Windows
 Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
 desktop.ini
-$RECYCLE.BIN/
-*.stackdump
-
-# Linux
 *~
-.nfs*
 
-# ── Cache & temporary files ─────────────────────────────────────────────────
+# Cache & temp
 .eslintcache
-.stylelintcache
-.parcel-cache
+.vite/
 .cache/
-.temp/
-.tmp/
 tmp/
-temp/
 *.tmp
-*.temp
-*.pid
-*.seed
-*.pid.lock
 
-# ── Testing ─────────────────────────────────────────────────────────────────
+# Testing
 coverage/
 *.lcov
-.nyc_output/
 
-# ── Package manager lock files (optional) ───────────────────────────────────
-# Uncomment below if using yarn or pnpm exclusively
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
-
-# ── Misc ────────────────────────────────────────────────────────────────────
+# Misc
 *.local
-*.orig
-*.rej
